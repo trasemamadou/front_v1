@@ -1,0 +1,71 @@
+<mat-card class="p-0">
+  <mat-card-title>
+    <div class="card-title-text">Créer une nouvelle classe</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+
+  <mat-card-content>
+    <form [formGroup]="classeForm" (ngSubmit)="createClasse()">
+      <div fxLayout="row wrap" fxLayoutGap="16px">
+        
+        <!-- Nom -->
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Nom de la classe *"
+              formControlName="nom"
+            />
+          </mat-form-field>
+          <small
+            *ngIf="classeForm.controls['nom'].hasError('required') && classeForm.controls['nom'].touched"
+            class="form-error-msg"
+          >
+            Le nom est obligatoire
+          </small>
+          <small
+            *ngIf="classeForm.controls['nom'].hasError('minlength') && classeForm.controls['nom'].touched"
+            class="form-error-msg"
+          >
+            Le nom doit comporter au moins {{ classeForm.controls['nom'].errors?.minlength.requiredLength }} caractères
+          </small>
+        </div>
+
+        <!-- Description -->
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              placeholder="Description *"
+              formControlName="description"
+              rows="4"
+            ></textarea>
+          </mat-form-field>
+          <small
+            *ngIf="classeForm.controls['description'].hasError('required') && classeForm.controls['description'].touched"
+            class="form-error-msg"
+          >
+            La description est obligatoire
+          </small>
+          <small
+            *ngIf="classeForm.controls['description'].hasError('minlength') && classeForm.controls['description'].touched"
+            class="form-error-msg"
+          >
+            La description doit comporter au moins {{ classeForm.controls['description'].errors?.minlength.requiredLength }} caractères
+          </small>
+        </div>
+      </div>
+
+      <!-- Bouton d’envoi -->
+      <div fxLayout="row" fxLayoutAlign="end center" class="pt-16">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="classeForm.invalid"
+        >
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

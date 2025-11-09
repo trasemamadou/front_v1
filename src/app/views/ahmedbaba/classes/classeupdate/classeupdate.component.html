@@ -1,0 +1,86 @@
+<mat-card class="p-0">
+
+  <!-- HEADER AVEC BANNIÈRE -->
+  <div style="
+      width:100%;
+      height:60px;
+      background:linear-gradient(to right, #3f51b5, #1a237e);
+      border-radius:12px 12px 0 0;
+      position:relative;
+      margin-bottom:70px;
+    ">
+    
+    <!-- PHOTO / ICON PROFIL -->
+    <div style="
+        position:absolute;
+        left:50%;
+        bottom:-55px;
+        transform: translateX(-50%);
+        text-align:center;
+      ">
+      
+      <!-- <div style="
+          width:120px;
+          height:120px;
+          border-radius:50%;
+          background:white;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+          box-shadow:0 4px 8px rgba(0,0,0,0.3);
+        ">
+        <mat-icon style="font-size:70px; color:#3f51b5;">school</mat-icon>
+      </div> -->
+
+      <h2 style="margin:14px 0 0 0; font-size:22px;">
+        Modifier la classe
+      </h2>
+      <small style="color:gray; font-size:15px;">
+        ID : {{ classe?.id }}
+      </small>
+    </div>
+  </div>
+
+  <!-- FORMULAIRE -->
+  <mat-card-content style="padding:24px;">
+
+    <div *ngIf="loading" style="text-align:center; margin-top:20px;">
+      <mat-spinner></mat-spinner>
+    </div>
+
+    <form *ngIf="!loading" [formGroup]="classeForm" (ngSubmit)="updateClasse()">
+
+      <div fxLayout="row wrap" fxLayoutGap="16px">
+
+        <!-- Nom -->
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Nom de la classe *" formControlName="nom" />
+          </mat-form-field>
+        </div>
+
+        <!-- Description -->
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              placeholder="Description *"
+              formControlName="description"
+              rows="4"
+            ></textarea>
+          </mat-form-field>
+        </div>
+
+      </div>
+
+      <!-- Bouton update -->
+      <div fxLayout="row" fxLayoutAlign="end center" class="pt-16">
+        <button mat-raised-button color="primary" [disabled]="classeForm.invalid">
+          Mettre à jour
+        </button>
+      </div>
+
+    </form>
+
+  </mat-card-content>
+</mat-card>

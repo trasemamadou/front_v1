@@ -1,0 +1,67 @@
+<mat-card class="p-0">
+  <mat-card-title>
+    <div class="card-title-text">Créer une nouvelle matière</div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="matiereForm" (ngSubmit)="createMatiere()">
+      <div fxLayout="row wrap" fxLayoutGap="16px">
+        <!-- Nom -->
+        <div fxFlex="100" fxFlex.gt-xs="50">
+          <mat-form-field class="full-width">
+            <input
+              matInput
+              placeholder="Nom de la matière *"
+              formControlName="name"
+            />
+          </mat-form-field>
+          <small
+            *ngIf="matiereForm.controls['name'].hasError('required') && matiereForm.controls['name'].touched"
+            class="form-error-msg"
+          >
+            Le nom est obligatoire
+          </small>
+          <small
+            *ngIf="matiereForm.controls['name'].hasError('minlength') && matiereForm.controls['name'].touched"
+            class="form-error-msg"
+          >
+            Le nom doit comporter au moins {{ matiereForm.controls['name'].errors?.minlength.requiredLength }} caractères
+          </small>
+        </div>
+        <!-- Description -->
+        <div fxFlex="100">
+          <mat-form-field class="full-width">
+            <textarea
+              matInput
+              placeholder="Description *"
+              formControlName="description"
+              rows="4"
+            ></textarea>
+          </mat-form-field>
+          <small
+            *ngIf="matiereForm.controls['description'].hasError('required') && matiereForm.controls['description'].touched"
+            class="form-error-msg"
+          >
+            La description est obligatoire
+          </small>
+          <small
+            *ngIf="matiereForm.controls['description'].hasError('minlength') && matiereForm.controls['description'].touched"
+            class="form-error-msg"
+          >
+            La description doit comporter au moins {{ matiereForm.controls['description'].errors?.minlength.requiredLength }} caractères
+          </small>
+        </div>
+      </div>
+      <!-- Bouton -->
+      <div fxLayout="row" fxLayoutAlign="end center" class="pt-16">
+        <button
+          mat-raised-button
+          color="primary"
+          [disabled]="matiereForm.invalid"
+        >
+          Enregistrer
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

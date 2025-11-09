@@ -1,0 +1,32 @@
+<mat-card class="p-0 overflow-x-auto" fxLayout="row wrap">
+  <table mat-table fxFlex [dataSource]="listClasses" *ngIf="listClasses" class="mat-elevation-z1 min-w-600">
+
+    <!-- Nom Column -->
+    <ng-container matColumnDef="nom">
+      <th mat-header-cell *matHeaderCellDef>Nom</th>
+      <td mat-cell *matCellDef="let element">
+        <p class="m-0 text-capitalize">{{ element.nom }}</p>
+      </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+      <th mat-header-cell *matHeaderCellDef>Description</th>
+      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+    </ng-container>
+
+    <!-- Archive Column -->
+    <ng-container matColumnDef="archive">
+      <th mat-header-cell *matHeaderCellDef>Archivée</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip class="py-4 px-8" color="{{ element.archive ? 'warn' : 'primary' }}" selected>
+          {{ element.archive ? 'Oui' : 'Non' }}
+        </mat-chip>
+      </td>
+    </ng-container>
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="['nom', 'description', 'archive']"></tr>
+    <tr mat-row *matRowDef="let row; columns: ['nom', 'description', 'archive'];"></tr>
+  </table>
+</mat-card>

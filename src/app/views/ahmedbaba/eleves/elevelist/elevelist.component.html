@@ -1,0 +1,43 @@
+<div fxLayout="row wrap" >
+  <div
+    *ngFor="let eleve of listStudents"
+    fxFlex="100"
+    fxFlex.gt-sm="33"
+    fxFlex.sm="50">
+
+    <mat-card class="user-card p-0">
+      <mat-card-title class="mb-16">
+        <div class="card-title-text" fxLayout="row" fxLayoutAlign="start center">
+          <a class="toolbar-avatar sm mr-16">
+            <img [src]="apiUrl  + eleve.imageUrl" alt="{{eleve.nom}}" width="40" height="40" style="border-radius:50%">
+          </a>
+          <div>
+            <span class="text-16 font-medium">{{ eleve.prenom }} {{ eleve.nom }}</span><br>
+            <small class="text-muted">{{ eleve.matricule }}</small>
+          </div>
+          <span fxFlex></span>
+          <button mat-icon-button [matMenuTriggerFor]="eleveMenu">
+            <mat-icon class="text-muted text-18">more_vert</mat-icon>
+          </button>
+          <mat-menu #eleveMenu="matMenu">
+            <!-- <button mat-menu-item>Modifier</button> -->
+            <button [routerLink]="['/ahmedbaba/eleves/profile/', eleve.id]" mat-menu-item>info</button>
+            <!-- <button mat-menu-item>Archiver</button>
+            <button mat-menu-item>Supprimer</button> -->
+          </mat-menu>
+        </div>
+        <mat-divider></mat-divider>
+      </mat-card-title>
+
+      <mat-card-content>
+        <div class="user-details">
+          <p><mat-icon class="text-muted text-18">cake</mat-icon> Né(e) le {{ eleve.date_naissance | date:'dd/MM/yyyy' }}</p>
+          <p><mat-icon class="text-muted text-18">phone</mat-icon> {{ eleve.telephone }}</p>
+          <p><mat-icon class="text-muted text-18">location_on</mat-icon> {{ eleve.adresse }}</p>
+          <p><mat-icon class="text-muted text-18">badge</mat-icon> Numéro d’enregistrement : {{ eleve.registrationNu }}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

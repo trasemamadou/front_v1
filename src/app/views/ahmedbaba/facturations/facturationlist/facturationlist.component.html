@@ -1,0 +1,68 @@
+<!-- Affichage loading / erreur -->
+<div *ngIf="isLoading">Chargement des factures...</div>
+<div *ngIf="errorMessage" class="error">Erreur : {{ errorMessage }}</div>
+  <mat-card-title>
+    <div class="card-title-text flex items-center justify-between">
+      <span>Liste des Classes</span><br>
+      <button mat-raised-button color="primary" [routerLink]="'/ahmedbaba/facturations/ajouter'">+ Nouvelle Facture</button>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+<div fxLayout="row wrap" fxLayoutGap="16px">
+    
+  <div *ngFor="let facture of listFactures"
+       fxFlex="100" fxFlex.gt-sm="33" fxFlex.sm="50">
+
+    <!-- Couleur conditionnelle selon le statut -->
+    <mat-card [ngStyle]="{
+        'background-color': facture.statut === 'soldé' ? '#e8f5e9' : '#ffffff',
+        'border-left': facture.statut === 'soldé' ? '6px solid #4caf50' : '6px solid #e0e0e0'
+      }"
+      style="box-shadow: 0 2px 6px rgba(0,0,0,0.1); border-radius: 8px;">
+
+      <mat-card-title>
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <!-- Icône -->
+          <div style="margin-right:12px; display:flex; align-items:center;">
+            <mat-icon style="font-size:36px; line-height:36px;">attach_money</mat-icon>
+          </div>
+
+          <div>
+            <div style="font-size:14px; font-weight:500;">
+              {{ facture.object }} · {{ facture.classe?.nom || '—' }}
+            </div>
+          </div>
+
+          <span fxFlex></span>
+
+          <!-- Menu actions -->
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="goToDetails(facture.libelle)">Détails</button>
+            <button mat-menu-item (click)="deleteFacture(facture.libelle)">Supprimer</button>
+          </mat-menu>
+        </div>
+      </mat-card-title>
+
+      <mat-divider></mat-divider>
+
+      <mat-card-content style="margin-top: 10px;">
+        <p><strong>Élève :</strong> {{ facture.student?.prenom }} {{ facture.student?.nom }} ({{ facture.student?.matricule }})</p>
+        <p><strong>Description :</strong> {{ facture.description || '—' }}</p>
+        <p><strong>Montant :</strong> {{ formatMontant(facture.montant) }}</p>
+        <p>
+          <strong>Statut :</strong>
+          <span [ngStyle]="{
+            'color': facture.statut === 'soldé' ? '#2e7d32' : '#616161',
+            'font-weight': facture.statut === 'soldé' ? '600' : 'normal'
+          }">
+            {{ facture.statut || '—' }}
+          </span>
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

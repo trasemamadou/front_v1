@@ -1,0 +1,108 @@
+<div *ngIf="loading" style="text-align:center; margin-top:40px;">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!loading && enseignant" style="max-width:100%; width:100%; margin:0 auto; padding:0 16px;">
+
+  <!-- BANNIÈRE FULL WIDTH -->
+  <div style="
+      width:100%;
+      height:160px;
+      background:linear-gradient(to right, #004d40, #00251a);
+      border-radius:12px;
+      position:relative;
+      margin-bottom:80px;
+    ">
+    
+    <!-- BOUTONS FLOATING -->
+    <div style="position:absolute; top:12px; right:12px;">
+      <button mat-mini-fab color="primary" style="margin-right:8px;" (click)="updateTeacher()">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" (click)="deleteTeacher()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+    <!-- PHOTO PROFIL CENTRÉE -->
+    <div style="
+        position:absolute;
+        left:50%;
+        bottom:-55px;
+        transform: translateX(-50%);
+        text-align:center;
+      ">
+      <img 
+        [src]="apiUrl + '/profile/' + enseignant.cheminProfil" 
+        width="120"
+        height="120"
+        style="
+          border-radius:50%;
+          object-fit:cover;
+          border:4px solid white;
+          box-shadow:0 4px 8px rgba(0,0,0,0.3);
+        "
+      />
+      <h2 style="margin:14px 0 0 0; font-size:23px;">
+        {{ enseignant.prenom }} {{ enseignant.nom }}
+      </h2>
+      <small style="color:gray; font-size:15px;">
+        N° Enseignant : {{ enseignant.numeroEnseignant }}
+      </small>
+    </div>
+  </div>
+
+  <!-- FULL WIDTH CARD -->
+  <mat-card style="
+      width:100%;
+      border-radius:14px;
+      padding:24px;
+      box-sizing:border-box;
+    ">
+    
+    <h3 style="margin-top:0; margin-bottom:16px; font-size:20px; font-weight:500;">
+      Informations personnelles
+    </h3>
+
+    <mat-divider style="margin-bottom:20px;"></mat-divider>
+
+    <!-- GRID -->
+    <div style="
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap:20px;
+      ">
+
+      <p style="display:flex; align-items:center; margin:0;">
+        <mat-icon style="margin-right:8px;">cake</mat-icon>
+        Né(e) le :
+        <strong style="margin-left:4px;">{{ enseignant.dateNaissance | date:'dd/MM/yyyy' }}</strong>
+      </p>
+
+      <p style="display:flex; align-items:center; margin:0;">
+        <mat-icon style="margin-right:8px;">phone</mat-icon>
+        {{ enseignant.telephone }}
+      </p>
+
+      <p style="display:flex; align-items:center; margin:0;">
+        <mat-icon style="margin-right:8px;">location_on</mat-icon>
+        {{ enseignant.adresse }}
+      </p>
+
+      <p style="display:flex; align-items:center; margin:0;">
+        <mat-icon style="margin-right:8px;">school</mat-icon>
+        Matière enseignée :
+        <strong style="margin-left:4px;">{{ enseignant.matiere }}</strong>
+      </p>
+
+      <p style="display:flex; align-items:center; margin:0;">
+        <mat-icon style="margin-right:8px;">badge</mat-icon>
+        Diplôme :
+        <strong style="margin-left:4px;">{{ enseignant.diplome }}</strong>
+      </p>
+
+    </div>
+
+  </mat-card>
+
+</div>

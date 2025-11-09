@@ -1,0 +1,101 @@
+<div *ngIf="loading" style="text-align:center; margin-top:40px;">
+  <mat-spinner></mat-spinner>
+</div>
+
+<div *ngIf="!loading && matiere" style="max-width:100%; width:100%; margin:0 auto; padding:0 16px;">
+
+  <!-- BANNIÈRE -->
+  <div style="
+      width:100%;
+      height:160px;
+      background:linear-gradient(to right, #009688, #004d40);
+      border-radius:12px;
+      position:relative;
+      margin-bottom:80px;
+    ">
+    
+    <!-- BOUTONS FLOATANTS -->
+    <div style="position:absolute; top:12px; right:12px;">
+      <button mat-mini-fab color="primary" style="margin-right:8px;" [routerLink]="['/ahmedbaba/matieres/update/', matiere.id]">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-mini-fab color="warn" (click)="deleteMatiere()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+
+    <!-- TITRE CENTRÉ -->
+    <div style="
+        position:absolute;
+        left:50%;
+        bottom:-55px;
+        transform: translateX(-50%);
+        text-align:center;
+      ">
+
+      <h2 style="margin:14px 0 0 0; font-size:23px;">
+        {{ matiere.name }}
+      </h2>
+
+      <small style="color:gray; font-size:15px;">
+        {{ matiere.description }}
+      </small>
+
+    </div>
+  </div>
+
+  <!-- CARD INFO -->
+  <mat-card style="
+      width:100%;
+      border-radius:14px;
+      padding:24px;
+      box-sizing:border-box;
+    ">
+
+    <h3 style="margin-top:0; margin-bottom:16px; font-size:20px; font-weight:500;">
+      Informations de la matière
+    </h3>
+
+    <mat-divider style="margin-bottom:20px;"></mat-divider>
+
+    <div style="
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap:20px;
+      ">
+
+      <!-- ID -->
+      <p style="display:flex; align-items:center; margin:0;">
+        <mat-icon style="margin-right:8px;">badge</mat-icon>
+        Identifiant :
+        <strong style="margin-left:4px;">{{ matiere.id }}</strong>
+      </p>
+
+      <!-- NAME -->
+      <p style="display:flex; align-items:center; margin:0;">
+        <mat-icon style="margin-right:8px;">school</mat-icon>
+        Nom :
+        <strong style="margin-left:4px;">{{ matiere.name }}</strong>
+      </p>
+
+      <!-- DESCRIPTION -->
+      <p style="display:flex; align-items:center; margin:0;">
+        <mat-icon style="margin-right:8px;">description</mat-icon>
+        Description :
+        <strong style="margin-left:4px;">{{ matiere.description }}</strong>
+      </p>
+
+      <!-- ARCHIVE -->
+      <p style="display:flex; align-items:center; margin:0;">
+        <mat-icon style="margin-right:8px;">inventory_2</mat-icon>
+        Archivée :
+        <strong style="margin-left:4px;">
+          {{ matiere.archive ? 'Oui' : 'Non' }}
+        </strong>
+      </p>
+
+    </div>
+
+  </mat-card>
+
+</div>

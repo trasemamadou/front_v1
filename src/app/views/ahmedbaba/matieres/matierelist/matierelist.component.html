@@ -1,0 +1,37 @@
+<mat-card class="p-0">
+  <mat-card-title>
+    <div class="card-title-text flex items-center justify-between">
+      <span>Liste des Matières</span><br>
+      <button mat-raised-button color="primary" [routerLink]="'/ahmedbaba/matieres/ajouter'">+ Nouvelle Matière</button>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+
+  <mat-card-content>
+    <div *ngIf="listMatieres?.length; else noData">
+      <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Nom</th> 
+            <th>Description</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let m of listMatieres">
+            <td>{{ m.name }}</td> 
+            <td>{{ m.description }}</td>
+            <td nowrap>
+              <button mat-stroked-button color="accent" [routerLink]="['/ahmedbaba/matieres/info/', m.id]">Info</button>
+              <!-- <button mat-stroked-button color="warn" (click)="supprimerMatiere(m.id)">Supprimer</button>
+            </td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noData>
+      <p style="padding: 1rem; text-align: center;">Aucune matière disponible.</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>

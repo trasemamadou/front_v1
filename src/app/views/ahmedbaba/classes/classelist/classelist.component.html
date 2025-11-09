@@ -1,0 +1,46 @@
+<mat-card class="p-0">
+  <mat-card-title>
+    <div class="card-title-text flex items-center justify-between">
+      <span>Liste des Classes</span><br>
+      <button mat-raised-button color="primary" [routerLink]="'/ahmedbaba/classes/ajouter'">+ Nouvelle Classe</button>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
+
+  <mat-card-content>
+    <div *ngIf="listClasses?.length; else noData">
+      <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <!-- <th>Archivée</th> -->
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let c of listClasses">
+            <td>{{ c.nom }}</td>
+            <td>{{ c.description }}</td>
+            <!-- <td>
+              <mat-icon color="{{ c.archive ? 'warn' : 'primary' }}">
+                {{ c.archive ? 'archive' : 'check_circle' }}
+              </mat-icon>
+            </td> -->
+            <td nowrap>
+              <button mat-stroked-button color="accent" [routerLink]="['/ahmedbaba/classes/info/', c.id]">Info</button>
+              <!-- <button mat-stroked-button color="warn" (click)="supprimerClasse(c.id)">Supprimer</button>
+              <button mat-stroked-button color="primary" *ngIf="!c.archive" (click)="archiverClasse(c.id)">
+                Archiver
+              </button> -->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noData>
+      <p style="padding: 1rem; text-align: center;">Aucune classe disponible.</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>
