@@ -1,0 +1,61 @@
+<mat-card class="p-0">
+  <mat-card-title>
+    <div class="card-title-text flex items-center justify-between">
+      <span>Liste des Enseignements</span>
+
+      <div>
+        <!-- ✅ Bouton ENSEIGNEMENT comme demandé -->
+        <button mat-mini-fab color="primary" style="margin-right:8px;" [routerLink]="['/ahmedbaba/classes/enseignements/ajouter', idClasse]">
+          <mat-icon>add</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+  </mat-card-title>
+
+  <mat-card-content>
+
+    <div *ngIf="listEnseignements?.length; else noData">
+      <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Classe</th>
+            <th>Matière</th>
+            <th>Enseignant</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let ens of listEnseignements">
+
+            <!-- classe.nom -->
+            <td>{{ ens.classe?.nom }}</td>
+
+            <!-- matiere.name -->
+            <td>{{ ens.matiere?.name }}</td>
+
+            <!-- enseignant nom complet -->
+            <td>{{ ens.enseignant?.prenom }} {{ ens.enseignant?.nom }}</td>
+
+            <td nowrap>
+              <button mat-mini-fab color="primary" (click)="update(ens.id)" style="margin-left:6px;">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" (click)="delete(ens.id)" style="margin-left:6px;">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noData>
+      <p style="padding: 1rem; text-align: center;">Aucun enseignement disponible.</p>
+    </ng-template>
+
+  </mat-card-content>
+</mat-card>
