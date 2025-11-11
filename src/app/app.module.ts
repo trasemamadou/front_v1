@@ -1,14 +1,13 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, APP_INITIALIZER } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-// import { GestureConfig } from '@angular/material/core';
-import { 
-  PerfectScrollbarModule, 
-  PERFECT_SCROLLBAR_CONFIG, 
+
+import {
+  PerfectScrollbarModule,
+  PERFECT_SCROLLBAR_CONFIG,
   PerfectScrollbarConfigInterface
 } from './shared/components/perfect-scrollbar';
-
 
 import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './shared/inmemory-db/inmemory-db.service';
@@ -17,19 +16,42 @@ import { rootRouterConfig } from './app.routing';
 import { SharedModule } from './shared/shared.module';
 import { AppComponent } from './app.component';
 
-import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+
 import { ErrorHandlerService } from './shared/services/error-handler.service';
-import { TokenInterceptor } from './shared/interceptors/token.interceptor';
-import { ClasseComponent } from './views/ahmedbaba/components/classe/classe.component';
-import { EleveComponent } from './views/ahmedbaba/components/eleve/eleve.component';
-import { FacturationComponent } from './views/ahmedbaba/components/facturation/facturation.component';
 
+// ✅ Ajout Keycloak
+import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(httpClient: HttpClient) {
-  return new TranslateHttpLoader(httpClient);
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
+// ✅ Initialisation Keycloak
+export function initializeKeycloak(keycloak: KeycloakService) {
+  return () =>
+    keycloak.init({
+      config: {
+        url: 'http://localhost:8080',
+        realm: 'realm-demo',
+        clientId: 'demo'
+      },
+      initOptions: {
+        onLoad: 'check-sso',
+        checkLoginIframe: true
+      },
+      enableBearerInterceptor: true,
+      bearerExcludedUrls: [
+        '/assets',
+        '/acceuil',
+        '/sessions',
+        '/register',
+        '/api/public',
+        ''
+      ]
+    });
 }
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -37,12 +59,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 };
 
 @NgModule({
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
     PerfectScrollbarModule,
+    KeycloakAngularModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
@@ -50,21 +74,25 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
         deps: [HttpClient]
       }
     }),
-    InMemoryWebApiModule.forRoot(InMemoryDataService, { passThruUnknownUrl: true}),
-    RouterModule.forRoot(rootRouterConfig, { useHash: false, relativeLinkResolution: 'legacy' })
+    InMemoryWebApiModule.forRoot(InMemoryDataService, {
+      passThruUnknownUrl: true
+    }),
+    RouterModule.forRoot(rootRouterConfig, {
+      useHash: false
+    })
   ],
-  declarations: [AppComponent],
   providers: [
     { provide: ErrorHandler, useClass: ErrorHandlerService },
-    // { provide: HAMMER_GESTURE_CONFIG, useClass: GestureConfig },
     { provide: PERFECT_SCROLLBAR_CONFIG, useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG },
-    // REQUIRED IF YOU USE JWT AUTHENTICATION
+
+    // ✅ Initialisation Keycloak
     {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true,
-    },
+      provide: APP_INITIALIZER,
+      useFactory: initializeKeycloak,
+      deps: [KeycloakService],
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

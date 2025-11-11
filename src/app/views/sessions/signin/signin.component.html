@@ -1,61 +1,69 @@
 <div class="page-wrap h-full slate">
   <div class="session-form-hold">
-    <mat-progress-bar mode="determinate" class="session-progress"></mat-progress-bar>
+    <mat-progress-bar [mode]="loading ? 'indeterminate' : 'determinate'" class="session-progress"></mat-progress-bar>
+
     <mat-card>
       <mat-card-content>
         <div class="text-center pt-8 pb-16">
-          <img width="60px" src="assets/images/logo.png" alt="">
+          <img width="60px" src="assets/images/logo.png" alt="Logo" class="mb-8">
+          <h2>Let's get started</h2>
           <p class="text-muted m-0">Sign in to your account</p>
         </div>
 
-        <p *ngIf="errorMsg" class="text-center"><small class="text-red">{{errorMsg}}</small></p>
-        
+        <p *ngIf="errorMsg" class="text-center text-red">{{errorMsg}}</p>
+
         <form [formGroup]="signinForm" (ngSubmit)="signin()">
-          <div class="">
+
+          <div>
             <mat-form-field class="full-width">
               <input
                 matInput
-                name="username"
-                [formControl]="signinForm.controls['username']"
-                placeholder="Username"
-                value="">
+                type="email"
+                placeholder="Email"
+                [formControl]="signinForm.controls['email']">
             </mat-form-field>
-            <small 
-              *ngIf="signinForm.controls['username'].hasError('required') && signinForm.controls['username'].touched" 
-              class="form-error-msg"> Username is required </small>
+            <small *ngIf="signinForm.controls['email'].hasError('required') && signinForm.controls['email'].touched" class="form-error-msg">
+              Email is required
+            </small>
+            <small *ngIf="signinForm.controls['email'].hasError('email') && signinForm.controls['email'].touched" class="form-error-msg">
+              Invalid email address
+            </small>
           </div>
 
-          <div class="">
+          <div>
             <mat-form-field class="full-width">
-              <input 
-                type="password"
-                name="password"
+              <input
                 matInput
-                [formControl]="signinForm.controls['password']"
-                placeholder="Password" 
-                value="">
+                type="password"
+                placeholder="Password"
+                [formControl]="signinForm.controls['password']">
             </mat-form-field>
-            <small 
-              *ngIf="signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched" 
-              class="form-error-msg"> Password is required </small>
+            <small *ngIf="signinForm.controls['password'].hasError('required') && signinForm.controls['password'].touched" class="form-error-msg">
+              Password is required
+            </small>
           </div>
-          
+
           <div class="pb-16">
-            <mat-checkbox
-              name="rememberMe"
-              [formControl]="signinForm.controls['rememberMe']"
-              class="pb-16">Remember this computer</mat-checkbox>
+            <mat-checkbox [formControl]="signinForm.controls['agreed']">
+              I have read and agree to the terms of service.
+            </mat-checkbox>
+            <small *ngIf="signinForm.controls['agreed'].hasError('required') && signinForm.controls['agreed'].touched" class="form-error-msg">
+              You must agree to the terms and conditions
+            </small>
           </div>
-          
-          <button mat-raised-button class="mat-primary full-width mb-16" [disabled]="signinForm.invalid">Sign in</button>
+
+          <button mat-raised-button color="primary" class="full-width mb-16" [disabled]="signinForm.invalid || loading">
+            Sign in with Keycloak
+          </button>
+
           <div class="text-center">
-            <a [routerLink]="'/sessions/forgot-password'" class="mat-primary text-center full-width">Forgot password</a>
+            <a [routerLink]="'/sessions/forgot-password'" class="mat-primary">Forgot password</a>
             <span fxFlex></span>
-            <a [routerLink]="'/sessions/signup'" class="mat-primary text-center full-width">Create a new account</a>
+            <a [routerLink]="'/sessions/signup'" class="mat-primary">Create a new account</a>
           </div>
+
         </form>
       </mat-card-content>
     </mat-card>
   </div>
 </div>
-
