@@ -31,7 +31,11 @@ export const ClasseRoutes: Routes = [
         path: 'info/:id',
         component: ClasseinfoComponent,
         data: { title: 'Nouveau', breadcrumb: 'Nouveau' }
-      }
+      },
+        {path:  'enseignements',
+         loadChildren: () => import('../../../views/ahmedbaba/classes/enseignements/enseignements.module').then(m => m.EnseignementsModule),
+           data: { title: 'Classes', breadcrumb: 'CLASSE'}
+      },
     ]
   }
 ];

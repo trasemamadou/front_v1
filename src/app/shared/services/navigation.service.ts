@@ -35,63 +35,43 @@ export class NavigationService {
       type: 'link',
       icon: 'dashboard',
     },
-     {
-      name: 'TABLEAU DE BORD',
-      state: 'ahmedbaba/dashboard',
-      type: 'link',
-      icon: 'dashboard',
-    },
+    //  {
+    //   name: 'TABLEAU DE BORD',
+    //   state: 'ahmedbaba/dashboard',
+    //   type: 'link',
+    //   icon: 'dashboard',
+    // },
 
     // === GESTION DES ÉLÈVES ===
     {
-      name: 'ÉLÈVES',
-      type: 'dropDown',
-      tooltip: 'Gestion des élèves',
-      icon: 'school',
-      sub: [
-        { name: 'Liste', state: 'ahmedbaba/eleves/liste', icon: 'list' },
-        { name: 'Ajouter', state: 'ahmedbaba/eleves/ajouter', icon: 'person_add' },
-       // { name: 'Historique', state: 'ahmedbaba/eleves/historique', icon: 'history' },
-      ]
+  
+         name: 'ÉLÈVES', 
+         state: 'ahmedbaba/eleves/liste', 
+         type: 'link',
+         icon: 'school'    
     },
 
     // === GESTION DES CLASSES ===
-    {
-      name: 'CLASSES',
-      type: 'dropDown',
-      tooltip: 'Gestion des classes',
-      icon: 'class',
-      sub: [
-        { name: 'Liste', state: 'ahmedbaba/classes/liste', icon: 'list' },
-        { name: 'Ajouter', state: 'ahmedbaba/classes/ajouter', icon: 'add' },
+  
+        { 
+          name: 'Classes',
+          state: 'ahmedbaba/classes/liste',
+          type: 'link',
+          icon: 'class' }, 
       //  { name: 'Affecter élèves', state: 'ahmedbaba/classes/affecter-eleves', icon: 'person' },
-      ]
-    },
-
-    // === ENSEIGNANTS ===
-    {
-      name: 'ENSEIGNANTS',
-      type: 'dropDown',
-      tooltip: 'Gestion des enseignants',
-      icon: 'people',
-      sub: [
-        { name: 'Liste', state: 'ahmedbaba/enseignants/liste', icon: 'list' },
-        { name: 'Ajouter', state: 'ahmedbaba/enseignants/ajouter', icon: 'person_add' },
-       // { name: 'Emploi du temps', state: 'ahmedbaba/enseignants/emploi-temps', icon: 'schedule' },
-      ]
-    },
-
-    // === MATIÈRES ===
-    {
-      name: 'MATIÈRES',
-      type: 'dropDown',
-      tooltip: 'Gestion des matières',
-      icon: 'menu_book',
-      sub: [
-        { name: 'Liste', state: 'ahmedbaba/matieres/liste', icon: 'list' },
-        { name: 'Ajouter', state: 'ahmedbaba/matieres/ajouter', icon: 'add' },
-      ]
-    },
+      
+        { 
+          name: 'Enseignants',
+          state: 'ahmedbaba/enseignants/liste',
+          type: 'link',
+          icon: 'people' },
+ 
+        { 
+          name: 'MATIÈRES', 
+          state: 'ahmedbaba/matieres/liste', 
+          type: 'link',
+          icon: 'menu_book' }, 
+    
 
     // === NOTES ===
     {

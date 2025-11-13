@@ -81,7 +81,7 @@ export class KeycloakAuthService {
   /**
    * Rafraîchit le token si nécessaire
    */
-  refreshToken(minValidity: number = 30): Promise<boolean> {
+  refreshToken(minValidity: number = 1530): Promise<boolean> {
     return this.keycloak.updateToken(minValidity)
       .then(refreshed => refreshed)
       .catch(err => {

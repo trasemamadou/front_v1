@@ -26,8 +26,7 @@ import { AhmedbabaRoutes } from '../ahmedbaba.routing';
 import { ClasseRoutes } from './classe.routing';
 import { ClasseinfoComponent } from './classeinfo/classeinfo.component';
 import { ClasseupdateComponent } from './classeupdate/classeupdate.component';
-
-
+ 
 
 @NgModule({
  imports: [ 

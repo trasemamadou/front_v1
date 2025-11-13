@@ -23,7 +23,7 @@ export const rootRouterConfig: Routes = [
   {
     path: '',
     component: AdminLayoutComponent,
-    canActivate: [AuthGuard],
+  //  canActivate: [AuthGuard],
     children: [
       { path: 'dashboard', loadChildren: () => import('./views/dashboard/dashboard.module').then(m => m.DashboardModule), data: { title: 'Dashboard', breadcrumb: 'DASHBOARD'} },
       { path: 'others', loadChildren: () => import('./views/others/others.module').then(m => m.OthersModule), data: { title: 'Others', breadcrumb: 'OTHERS'} },
@@ -34,5 +34,6 @@ export const rootRouterConfig: Routes = [
   },
 
   // Fallback
-  { path: '**', redirectTo: 'sessions/signup' }
+  //{ path: '**', redirectTo: 'sessions/signup' }
+  { path: '**', redirectTo: 'sessions/404' }
 ];

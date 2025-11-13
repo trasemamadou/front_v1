@@ -52,5 +52,8 @@ export class ClasseinfoComponent implements OnInit {
       error: (err) => console.error(err)
     });
   }
+    goToEnseignement() {
+    this.router.navigate(['/ahmedbaba/classes/enseignements/liste', this.classe.id]);
+  }
 
 }

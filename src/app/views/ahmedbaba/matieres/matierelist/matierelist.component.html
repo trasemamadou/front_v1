@@ -2,10 +2,13 @@
   <mat-card-title>
     <div class="card-title-text flex items-center justify-between">
       <span>Liste des Matières</span><br>
-      <button mat-raised-button color="primary" [routerLink]="'/ahmedbaba/matieres/ajouter'">+ Nouvelle Matière</button>
+      <button mat-mini-fab color="primary" style="margin-right:8px;" [routerLink]="'/ahmedbaba/matieres/ajouter'">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
     <mat-divider></mat-divider>
   </mat-card-title>
+
 
   <mat-card-content>
     <div *ngIf="listMatieres?.length; else noData">

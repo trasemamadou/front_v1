@@ -1,44 +1,62 @@
-<div fxLayout="row wrap" fxLayoutGap="16px">
-  <div
-    *ngFor="let ens of listTeachers"
-    fxFlex="100"
-    fxFlex.gt-sm="33"
-    fxFlex.sm="50">
+<mat-card class="p-0">
+  <!-- En-tête avec titre et bouton Ajouter -->
+  <mat-card-title>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span class="text-16 font-medium">Liste des Enseignants</span>
+      <button mat-mini-fab color="primary" [routerLink]="'/ahmedbaba/enseignants/ajouter'">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+    <mat-divider></mat-divider>
+  </mat-card-title>
 
-    <mat-card class="user-card p-0">
-      <mat-card-title class="mb-16">
-        <div fxLayout="row" fxLayoutAlign="start center">
+  <!-- Contenu de la carte -->
+  <mat-card-content>
+    <div *ngIf="listTeachers?.length; else noData" fxLayout="row wrap">
+      <div
+        *ngFor="let ens of listTeachers"
+        fxFlex="100"
+        fxFlex.gt-sm="33"
+        fxFlex.sm="50">
 
-          <a class="toolbar-avatar sm mr-16">
-            <img [src]="apiUrl + ens.imageUrl" alt="{{ens.nom}}" width="40" height="40" style="border-radius:50%">
-          </a>
+        <mat-card class="user-card p-0">
+          <mat-card-title class="mb-16">
+            <div fxLayout="row" fxLayoutAlign="start center">
 
-          <div>
-            <span class="text-16 font-medium">{{ ens.prenom }} {{ ens.nom }}</span><br>
-            <small class="text-muted">{{ ens.telephone }}</small>
-          </div>
+              <a class="toolbar-avatar sm mr-16">
+                <img [src]="apiUrl + ens.imageUrl" alt="{{ens.nom}}" width="40" height="40" style="border-radius:50%">
+              </a>
 
-          <span fxFlex></span>
-          <button mat-icon-button [matMenuTriggerFor]="ensMenu">
-            <mat-icon>more_vert</mat-icon>
-          </button>
-          <mat-menu #ensMenu="matMenu">
-            <!-- <button mat-menu-item>Modifier</button> -->
-                         <button [routerLink]="['/ahmedbaba/enseignants/profile/', ens.id]" mat-menu-item>info</button>
-            <!-- <button mat-menu-item (click)="deleteTeacher(ens.id)">Supprimer</button> -->
-          </mat-menu>
+              <div>
+                <span class="text-16 font-medium">{{ ens.prenom }} {{ ens.nom }}</span><br>
+                <small class="text-muted">{{ ens.telephone }}</small>
+              </div>
 
-        </div>
-        <mat-divider></mat-divider>
-      </mat-card-title>
+              <span fxFlex></span>
+              <button mat-icon-button [matMenuTriggerFor]="ensMenu">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #ensMenu="matMenu">
+                <button [routerLink]="['/ahmedbaba/enseignants/profile/', ens.id]" mat-menu-item>Info</button>
+              </mat-menu>
 
-      <mat-card-content>
-        <div class="user-details">
-          <p><mat-icon>cake</mat-icon> Né(e) le {{ ens.date_naissance | date:'dd/MM/yyyy' }}</p>
-          <p><mat-icon>location_on</mat-icon> {{ ens.adresse }}</p>
-        </div>
-      </mat-card-content>
-    </mat-card>
+            </div>
+            <mat-divider></mat-divider>
+          </mat-card-title>
 
-  </div>
-</div>
+          <mat-card-content>
+            <div class="user-details">
+              <p><mat-icon>cake</mat-icon> Né(e) le {{ ens.date_naissance | date:'dd/MM/yyyy' }}</p>
+              <p><mat-icon>location_on</mat-icon> {{ ens.adresse }}</p>
+            </div>
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+    </div>
+
+    <ng-template #noData>
+      <p style="padding: 1rem; text-align: center;">Aucun enseignant disponible.</p>
+    </ng-template>
+  </mat-card-content>
+</mat-card>
