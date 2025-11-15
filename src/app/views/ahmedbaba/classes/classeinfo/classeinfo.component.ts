@@ -55,5 +55,8 @@ export class ClasseinfoComponent implements OnInit {
     goToEnseignement() {
     this.router.navigate(['/ahmedbaba/classes/enseignements/liste', this.classe.id]);
   }
+  goToParametrageFacture(){
+    this.router.navigate(['/ahmedbaba/classes/parametrages/liste', this.classe.id]);
+  }
 
 }

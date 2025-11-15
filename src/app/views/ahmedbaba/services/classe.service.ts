@@ -32,8 +32,12 @@ export class ClasseService {
     public getEnseignementsClasse(idClasse: number){
       return this.http.get(`${apiUrl}/enseignements/${idClasse}`);
     }
+        public getParametragesClasse(idClasse: number){
+      return this.http.get(`${apiUrl}/enseignements/${idClasse}`);
+    }
     public createEnseignement(payload: any){
       return this.http.get(`${apiUrl}/enseignements/${payload}`);
     }
+    
     
 }

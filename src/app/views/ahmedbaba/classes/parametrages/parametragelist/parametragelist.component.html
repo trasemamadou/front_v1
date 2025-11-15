@@ -1,0 +1,55 @@
+<mat-card class="p-0">
+  <mat-card-title>
+    <div class="card-title-text flex items-center justify-between">
+      <span>Liste des Paramétrages Facture</span>
+
+      <div>
+        <!-- ✅ Bouton AJOUTER Paramétrage Facture -->
+        <button mat-mini-fab color="accent" style="margin-right:8px;" [routerLink]="['/parametrage-facture/ajouter']">
+          <mat-icon>attach_money</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <mat-divider></mat-divider>
+  </mat-card-title>
+
+  <mat-card-content>
+
+    <div *ngIf="listParametrages?.length; else noData">
+      <table class="default-table mat-box-shadow mb-24" style="width: 100%">
+        <thead>
+          <tr>
+            <th>Nom</th>
+            <th>Description</th>
+            <th>Montant</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr *ngFor="let param of listParametrages">
+            <td>{{ param.nom }}</td>
+            <td>{{ param.description }}</td>
+            <td>{{ param.montant | currency:'XOF' }}</td>
+
+            <td nowrap>
+              <button mat-mini-fab color="primary" (click)="update(param.id)" style="margin-left:6px;">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-mini-fab color="warn" (click)="delete(param.id)" style="margin-left:6px;">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #noData>
+      <p style="padding: 1rem; text-align: center;">Aucun paramétrage disponible.</p>
+    </ng-template>
+
+  </mat-card-content>
+</mat-card>
+

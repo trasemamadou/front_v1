@@ -34,7 +34,11 @@ export const ClasseRoutes: Routes = [
       },
         {path:  'enseignements',
          loadChildren: () => import('../../../views/ahmedbaba/classes/enseignements/enseignements.module').then(m => m.EnseignementsModule),
-           data: { title: 'Classes', breadcrumb: 'CLASSE'}
+           data: { title: 'Enseignements', breadcrumb: 'CLASSE'}
+      },
+        {path:  'parametrages',
+         loadChildren: () => import('../../../views/ahmedbaba/classes/parametrages/parametrages.module').then(m => m.ParametragesModule),
+           data: { title: 'Parametrages', breadcrumb: 'CLASSE'}
       },
     ]
   }
