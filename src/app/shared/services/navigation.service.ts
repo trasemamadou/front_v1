@@ -72,32 +72,33 @@ export class NavigationService {
           type: 'link',
           icon: 'menu_book' }, 
     
-
-    // === NOTES ===
-    {
-      name: 'NOTES & BULLETINS',
-      type: 'dropDown',
-      tooltip: 'Gestion des notes',
-      icon: 'grade',
-      sub: [
-        { name: 'Saisir des notes', state: 'ahmedbaba/notes/saisir', icon: 'edit' },
-        { name: 'Liste des notes', state: 'ahmedbaba/notes/liste', icon: 'list' },
-        { name: 'Bulletins', state: 'ahmedbaba/notes/bulletins', icon: 'description' },
-      ]
+ {
+      name: 'FACTURATIONS', 
+      type: 'link',
+      icon: 'receipt_long',
+      state: 'ahmedbaba/facturations/liste'
     },
+     {
+      name: 'COMPOSITIONS', 
+      type: 'link',
+      icon: 'receipt_long',
+      state: 'ahmedbaba/compositions/liste'
+    },
+    // === NOTES ===
+    // {
+    //   name: 'NOTES & BULLETINS',
+    //   type: 'dropDown',
+    //   tooltip: 'Gestion des notes',
+    //   icon: 'grade',
+    //   sub: [
+    //     { name: 'Saisir des notes', state: 'ahmedbaba/notes/saisir', icon: 'edit' },
+    //     { name: 'Liste des notes', state: 'ahmedbaba/notes/liste', icon: 'list' },
+    //     { name: 'Bulletins', state: 'ahmedbaba/notes/bulletins', icon: 'description' },
+    //   ]
+    // },
 
     // === FACTURATION ===
-    {
-      name: 'FACTURATION',
-      type: 'dropDown',
-      tooltip: 'Gestion des paiements',
-      icon: 'receipt_long',
-      sub: [
-        { name: 'Paiements', state: 'ahmedbaba/facturations/paiements', icon: 'payments' },
-        { name: 'Frais scolaires', state: 'ahmedbaba/facturations/frais', icon: 'price_change' },
-        { name: 'Reçus', state: 'ahmedbaba/facturations/recus', icon: 'receipt' },
-      ]
-    },
+   
 
     // === RAPPORTS ===
     {

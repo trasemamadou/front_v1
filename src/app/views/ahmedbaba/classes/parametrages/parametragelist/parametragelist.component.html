@@ -5,8 +5,8 @@
 
       <div>
         <!-- ✅ Bouton AJOUTER Paramétrage Facture -->
-        <button mat-mini-fab color="accent" style="margin-right:8px;" [routerLink]="['/parametrage-facture/ajouter']">
-          <mat-icon>attach_money</mat-icon>
+        <button mat-mini-fab  color="primary" style="margin-right:8px;" [routerLink]="['/ahmedbaba/classes/parametrages/ajouter', idClasse]">
+          <mat-icon>add</mat-icon>
         </button>
       </div>
     </div>
@@ -20,7 +20,7 @@
       <table class="default-table mat-box-shadow mb-24" style="width: 100%">
         <thead>
           <tr>
-            <th>Nom</th>
+            <th>Objet</th>
             <th>Description</th>
             <th>Montant</th>
             <th>Actions</th>
@@ -29,7 +29,7 @@
 
         <tbody>
           <tr *ngFor="let param of listParametrages">
-            <td>{{ param.nom }}</td>
+            <td>{{ param.object }}</td>
             <td>{{ param.description }}</td>
             <td>{{ param.montant | currency:'XOF' }}</td>
 

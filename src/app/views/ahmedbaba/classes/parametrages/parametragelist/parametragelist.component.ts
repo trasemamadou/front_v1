@@ -28,6 +28,7 @@ listParametrages: any[] = [];
   getParametragesClasse(idClasse: number): void {
     this.classeService.getParametragesClasse(idClasse).subscribe({
       next: (data: any) => {
+        console.log("Data : ", data)
         this.listParametrages = data;
         console.log("PARAMETRAGES FACTURE :", data);
       },
@@ -38,7 +39,7 @@ listParametrages: any[] = [];
   }
 
   update(id: number): void {
-    this.router.navigate(['/parametrage-facture/edit', id]);
+    this.router.navigate(['/ahmedbaba/classes/parametrages/update', id]);
   }
 
   delete(id: number): void {

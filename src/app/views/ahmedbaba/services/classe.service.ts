@@ -33,7 +33,7 @@ export class ClasseService {
       return this.http.get(`${apiUrl}/enseignements/${idClasse}`);
     }
         public getParametragesClasse(idClasse: number){
-      return this.http.get(`${apiUrl}/enseignements/${idClasse}`);
+      return this.http.get(`${apiUrl}/parametrages/${idClasse}`);
     }
     public createEnseignement(payload: any){
       return this.http.get(`${apiUrl}/enseignements/${payload}`);
