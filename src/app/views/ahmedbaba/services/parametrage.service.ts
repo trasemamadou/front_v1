@@ -37,6 +37,6 @@ export class ParametrageService {
 
   /** Supprimer un paramétrage */
   public deleteParametrage(id: number): Observable<any> {
-    return this.http.delete<any>(`${apiUrl}/delete/${id}`);
+    return this.http.delete<any>(`${apiUrl}/${id}`);
   }
 }

@@ -31,6 +31,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { ClasseComponent } from './components/classe/classe.component';
+import { ConfirmationdialogComponent } from './confirmationdialog/confirmationdialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -54,6 +56,7 @@ import { ClasseComponent } from './components/classe/classe.component';
         QuillModule.forRoot(),
         FileUploadModule,
            CommonModule,
+           MatDialogModule,
     HttpClientModule, 
     MatDividerModule, 
     MatSnackBarModule,
@@ -69,6 +72,6 @@ import { ClasseComponent } from './components/classe/classe.component';
             MatCardModule,
             
       ],
-      declarations: [ClasseComponent],
+      declarations: [ClasseComponent, ConfirmationdialogComponent],
 })
 export class AhmedbabaModule { }

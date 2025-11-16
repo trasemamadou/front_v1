@@ -24,6 +24,7 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { NgxEchartsModule } from 'ngx-echarts';
 import { QuillModule } from 'ngx-quill';
 import { ParametrageRoutes } from './parametrages.routing';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -49,6 +50,7 @@ import { ParametrageRoutes } from './parametrages.routing';
         MatIconModule,
         MatStepperModule,
         FlexLayoutModule,
+        MatDialogModule,
         QuillModule.forRoot(),
         FileUploadModule,
                 QuillModule.forRoot(),

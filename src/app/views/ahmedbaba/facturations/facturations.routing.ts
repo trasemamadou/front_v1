@@ -5,15 +5,20 @@ import { RichTextEditorComponent } from 'app/views/forms/rich-text-editor/rich-t
 import { WizardComponent } from 'app/views/forms/wizard/wizard.component';
 import { FacturationlistComponent } from './facturationlist/facturationlist.component';
 import { FacturationcreateComponent } from './facturationcreate/facturationcreate.component';
+import { FacturationinfoComponent } from './facturationinfo/facturationinfo.component';
  
 export const FaturationRoutes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'paiements',
+        path: 'liste',
         component: FacturationlistComponent,
         data: { title: 'Paiments', breadcrumb: 'PAIEMENTS' }
+      },    {
+        path: 'info/:libelle',
+        component: FacturationinfoComponent,
+        data: { title: 'Infos', breadcrumb: 'INFOS' }
       },
       {
         path: 'ajouter',

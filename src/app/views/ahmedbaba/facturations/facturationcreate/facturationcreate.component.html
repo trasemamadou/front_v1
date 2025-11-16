@@ -1,1 +1,66 @@
-<p>facturationcreate works!</p>
+<div class="container" style="padding: 20px;">
+  <h2>Créer une Facturation</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <!-- Ligne 1 : Paramétrage + Student -->
+    <div class="row" style="display: flex; gap: 20px; margin-bottom: 15px;">
+      <!-- Paramétrage -->
+      <mat-form-field appearance="outline" style="flex: 1;">
+        <mat-label>Paramétrage</mat-label>
+        <input matInput 
+               formControlName="parametrageSearch"
+               [matAutocomplete]="autoParam">
+        <mat-autocomplete #autoParam="matAutocomplete"
+                          [displayWith]="displayParametrage.bind(this)"
+                          (optionSelected)="onParametrageSelected($event.option.value)">
+          <mat-option *ngFor="let p of filteredParametrages | async" [value]="p">
+            {{ p.description }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+      <!-- Student -->
+<!-- Student -->
+<mat-form-field appearance="outline" style="flex: 1;">
+  <mat-label>Étudiant</mat-label>
+  <input matInput 
+         formControlName="studentSearch"
+         [matAutocomplete]="autoStudent">
+  <mat-autocomplete #autoStudent="matAutocomplete"
+                    [displayWith]="displayEtudiant.bind(this)"
+                    (optionSelected)="onEtudiantSelected($event.option.value)">
+    <mat-option *ngFor="let s of filteredEtudiants | async" [value]="s">
+      {{ s.nom }} {{ s.prenom }}
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>
+
+    </div>
+
+    <!-- Ligne 2 : Description + Object -->
+    <div class="row" style="display: flex; gap: 20px; margin-bottom: 15px;">
+      <mat-form-field appearance="outline" style="flex: 1;">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description" readonly>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" style="flex: 1;">
+        <mat-label>Object</mat-label>
+        <input matInput formControlName="object" readonly>
+      </mat-form-field>
+    </div>
+
+    <!-- Ligne 3 : Montant + Statut -->
+    <div class="row" style="display: flex; gap: 20px; margin-bottom: 15px;">
+      <mat-form-field appearance="outline" style="flex: 1;">
+        <mat-label>Montant</mat-label>
+        <input matInput type="number" formControlName="montant" readonly>
+      </mat-form-field>
+    </div>
+
+    <button mat-raised-button color="primary" type="submit" [disabled]="form.invalid">
+      ENREGISTRER
+    </button>
+  </form>
+</div>

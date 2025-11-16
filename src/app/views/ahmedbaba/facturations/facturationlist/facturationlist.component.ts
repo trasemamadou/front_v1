@@ -53,7 +53,7 @@ export class FacturationlistComponent implements OnInit {
   goToDetails(libelle?: string): void {
     if (!libelle) return;
     // redirige vers une route de détail que tu peux implémenter
-    this.router.navigate(['/factures', libelle]);
+    this.router.navigate(['/ahmedbaba/facturations/info', libelle]);
   }
 
   formatMontant(m?: number): string {

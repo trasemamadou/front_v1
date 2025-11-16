@@ -3,8 +3,10 @@
 <div *ngIf="errorMessage" class="error">Erreur : {{ errorMessage }}</div>
   <mat-card-title>
     <div class="card-title-text flex items-center justify-between">
-      <span>Liste des Classes</span><br>
-      <button mat-raised-button color="primary" [routerLink]="'/ahmedbaba/facturations/ajouter'">+ Nouvelle Facture</button>
+      <span>Liste des Factures</span><br>
+      <button mat-mini-fab color="primary" [routerLink]="'/ahmedbaba/facturations/ajouter'">
+        <mat-icon>add</mat-icon>
+      </button>
     </div>
     <mat-divider></mat-divider>
   </mat-card-title>
@@ -40,8 +42,7 @@
             <mat-icon>more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="goToDetails(facture.libelle)">Détails</button>
-            <button mat-menu-item (click)="deleteFacture(facture.libelle)">Supprimer</button>
+            <button mat-menu-item (click)="goToDetails(facture.libelle)">Info</button>
           </mat-menu>
         </div>
       </mat-card-title>

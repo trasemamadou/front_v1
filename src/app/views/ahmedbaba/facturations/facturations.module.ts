@@ -25,13 +25,15 @@ import { QuillModule } from 'ngx-quill';
 import { MatierecreateComponent } from '../matieres/matierecreate/matierecreate.component';
 import { MatierelistComponent } from '../matieres/matierelist/matierelist.component';
 import { FaturationRoutes } from './facturations.routing';
+import { FacturationinfoComponent } from './facturationinfo/facturationinfo.component';
 
 
 
 @NgModule({
   declarations: [
     FacturationcreateComponent,
-    FacturationlistComponent
+    FacturationlistComponent,
+    FacturationinfoComponent
   ],
   imports: [
         CommonModule,

@@ -1,1 +1,89 @@
-<p>parametrageupdate works!</p>
+<div class="container" style="padding: 20px;">
+  <h2>Modifier un Paramétrage</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+
+    <!-- ======= Ligne 1 : description + object ======= -->
+    <div class="row" style="display: flex; gap: 20px;">
+      
+      <!-- Description -->
+      <mat-form-field appearance="outline" class="full" style="flex: 1;">
+        <mat-label>Description</mat-label>
+        <input matInput formControlName="description">
+      </mat-form-field>
+
+      <!-- Object -->
+      <mat-form-field appearance="outline" class="full" style="flex: 1;">
+        <mat-label>Object</mat-label>
+        <input matInput formControlName="object">
+      </mat-form-field>
+
+    </div>
+
+    <!-- ======= Ligne 2 : dateDebut + dateFin ======= -->
+    <div class="row" style="display: flex; gap: 20px; margin-top: 15px;">
+
+      <!-- Date début -->
+      <mat-form-field appearance="outline" class="full" style="flex: 1;">
+        <mat-label>Date début</mat-label>
+        <input matInput type="datetime-local" formControlName="dateDebut">
+      </mat-form-field>
+
+      <!-- Date fin -->
+      <mat-form-field appearance="outline" class="full" style="flex: 1;">
+        <mat-label>Date fin</mat-label>
+        <input matInput type="datetime-local" formControlName="dateFin">
+      </mat-form-field>
+
+    </div>
+
+    <!-- ======= Ligne 3 : montant + classe (autocomplete) ======= -->
+    <div class="row" style="display: flex; gap: 20px; margin-top: 15px;">
+      
+      <!-- Montant -->
+      <mat-form-field appearance="outline" class="full" style="flex: 1;">
+        <mat-label>Montant</mat-label>
+        <input matInput type="number" formControlName="montant">
+      </mat-form-field>
+
+      <!-- Classe (autocomplete) -->
+      <mat-form-field appearance="outline" class="full" style="flex: 1;">
+        <mat-label>Classe</mat-label>
+
+        <!-- Input physique affiché -->
+        <input
+          type="text"
+          matInput
+          formControlName="classeSearch"
+          [matAutocomplete]="autoClasse"
+          [value]="displayClasseName(form.controls['classeSearch'].value)"
+        >
+
+        <mat-autocomplete
+          #autoClasse="matAutocomplete"
+          [displayWith]="displayClasseName"
+          (optionSelected)="onClasseSelected($event.option.value)"
+        >
+          <mat-option
+            *ngFor="let c of filteredClasse | async"
+            [value]="c"
+          >
+            {{ c.nom }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+
+    </div>
+
+    <!-- ======= Bouton ======= -->
+    <button 
+      mat-raised-button 
+      color="primary" 
+      type="submit" 
+      [disabled]="form.invalid"
+      style="margin-top: 20px;">
+      Mettre à jour
+    </button>
+
+  </form>
+</div>
