@@ -84,6 +84,12 @@ export class NavigationService {
       icon: 'receipt_long',
       state: 'ahmedbaba/compositions/liste'
     },
+     {
+      name: 'BIBLIOTHEQUE', 
+      type: 'link',
+      icon: 'receipt_long',
+      state: 'ahmedbaba/compositions/liste'
+    },
     // === NOTES ===
     // {
     //   name: 'NOTES & BULLETINS',
