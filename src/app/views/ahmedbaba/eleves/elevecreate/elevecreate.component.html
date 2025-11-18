@@ -1,63 +1,511 @@
-<mat-card class="p-0">
-  <mat-card-title>
-    <div class="card-title-text">Créer un nouvel élève</div>
-    <mat-divider></mat-divider>
-  </mat-card-title>
+<mat-card class="eleve-card-modern p-0 mat-elevation-z4">
 
-  <mat-card-content>
-    <form [formGroup]="eleveForm" (ngSubmit)="createEleve()">
-  <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
-
-    <!-- Prénom -->
-    <mat-form-field class="full-width">
-      <mat-label>Prénom</mat-label>
-      <input matInput formControlName="prenom" placeholder="Entrez le prénom">
-    </mat-form-field>
-
-    <!-- Nom -->
-    <mat-form-field class="full-width">
-      <mat-label>Nom</mat-label>
-      <input matInput formControlName="nom" placeholder="Entrez le nom">
-    </mat-form-field>
-
-  </div>
-
-  <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
-
-    <!-- Date de naissance -->
-    <mat-form-field class="full-width">
-      <mat-label>Date de naissance</mat-label>
-      <input matInput [matDatepicker]="picker" formControlName="date_naissance">
-      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-      <mat-datepicker #picker></mat-datepicker>
-    </mat-form-field>
-
-    <!-- Adresse -->
-    <mat-form-field class="full-width">
-      <mat-label>Adresse</mat-label>
-      <input matInput formControlName="adresse" placeholder="Entrez l'adresse">
-    </mat-form-field>
-
-  </div>
-
-  <div fxLayout="row" fxLayoutGap="16px" fxLayoutAlign="start center">
-
-    <!-- Téléphone -->
-    <mat-form-field class="full-width">
-      <mat-label>Téléphone</mat-label>
-      <input matInput formControlName="telephone" placeholder="Entrez le téléphone">
-    </mat-form-field>
-
-    <!-- Image -->
-    <div class="full-width">
-      <label for="image">Photo de profil</label><br>
-      <input type="file" id="image" (change)="onFileSelected($event)" accept="image/*">
+  <!-- En-tête avec gradient -->
+  <mat-card-header class="eleve-card-header-modern">
+    <div mat-card-avatar class="eleve-avatar-modern">
+      <mat-icon class="avatar-icon">school</mat-icon>
     </div>
+    <div class="header-content">
+      <mat-card-title class="modern-title">Créer un nouvel élève</mat-card-title>
+      <mat-card-subtitle class="modern-subtitle">
+        Renseignez les informations de l'élève puis enregistrez
+      </mat-card-subtitle>
+    </div>
+    <div class="progress-indicator">
+      <div class="progress-step active">1</div>
+      <div class="progress-step">2</div>
+      <div class="progress-step">3</div>
+      <div class="progress-step">4</div>
+      <div class="progress-step">5</div>
+    </div>
+  </mat-card-header>
 
-  </div>
+  <mat-divider class="modern-divider"></mat-divider>
 
-  <button mat-raised-button color="primary" type="submit">Enregistrer</button>
-</form>
+  <mat-card-content class="modern-content">
+    <form [formGroup]="eleveForm"
+          (ngSubmit)="createEleve()"
+          class="eleve-form-modern"
+          fxLayout="column"
+          fxLayoutGap="32px">
 
+      <!-- ========================= -->
+      <!-- 1. INFORMATIONS ÉLÈVE     -->
+      <!-- ========================= -->
+      <section class="form-section-modern">
+        <div class="section-header">
+          <div class="section-number">1</div>
+          <h3 class="section-title-modern">Informations sur l'élève</h3>
+        </div>
+
+        <div class="form-grid">
+          <!-- Ligne 1 : prénom / nom -->
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Prénom</mat-label>
+              <mat-icon matPrefix class="field-icon">person</mat-icon>
+              <input matInput formControlName="prenom" placeholder="Entrez le prénom">
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Nom</mat-label>
+              <mat-icon matPrefix class="field-icon">badge</mat-icon>
+              <input matInput formControlName="nom" placeholder="Entrez le nom">
+            </mat-form-field>
+          </div>
+
+          <!-- Ligne 2 : date de naissance / sexe -->
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Date de naissance</mat-label>
+              <mat-icon matPrefix class="field-icon">event</mat-icon>
+              <input matInput
+                     [matDatepicker]="picker"
+                     formControlName="date_naissance"
+                     placeholder="Sélectionnez une date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Sexe</mat-label>
+              <mat-icon matPrefix class="field-icon">wc</mat-icon>
+              <mat-select formControlName="sexe">
+                <mat-option value="F">Fille</mat-option>
+                <mat-option value="M">Garçon</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <!-- Ligne 3 : lieu de naissance / nationalité -->
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Lieu de naissance</mat-label>
+              <mat-icon matPrefix class="field-icon">location_on</mat-icon>
+              <input matInput formControlName="lieu_naissance" placeholder="Ville, pays">
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Nationalité</mat-label>
+              <mat-icon matPrefix class="field-icon">public</mat-icon>
+              <input matInput formControlName="nationalite" placeholder="Ex. sénégalaise, malienne">
+            </mat-form-field>
+          </div>
+
+          <!-- Ligne 4 : adresse / langues parlées -->
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Adresse</mat-label>
+              <mat-icon matPrefix class="field-icon">home</mat-icon>
+              <input matInput formControlName="adresse" placeholder="Quartier, ville">
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Langue(s) parlée(s) à la maison</mat-label>
+              <mat-icon matPrefix class="field-icon">translate</mat-icon>
+              <input matInput formControlName="langues" placeholder="Ex. français, wolof, bambara">
+            </mat-form-field>
+          </div>
+
+          <!-- Ligne 5 : situation de vie / téléphone -->
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>L'enfant vit principalement avec</mat-label>
+              <mat-icon matPrefix class="field-icon">family_restroom</mat-icon>
+              <mat-select formControlName="vit_avec">
+                <mat-option value="pere">Père</mat-option>
+                <mat-option value="mere">Mère</mat-option>
+                <mat-option value="parents">Les deux parents</mat-option>
+                <mat-option value="tuteur">Tuteur</mat-option>
+                <mat-option value="autre">Autre</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Téléphone (contact élève / foyer)</mat-label>
+              <mat-icon matPrefix class="field-icon">phone</mat-icon>
+              <input matInput formControlName="telephone" placeholder="Numéro principal">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Upload photo -->
+        <div class="upload-section">
+          <label class="upload-label-modern">Photo de profil</label>
+          <div class="upload-zone-modern" (click)="fileInput.click()">
+            <div class="upload-content">
+              <div class="upload-icon">
+                <mat-icon>cloud_upload</mat-icon>
+              </div>
+              <div class="upload-text">
+                <div class="upload-title-modern">Glissez-déposez ou parcourez</div>
+                <div class="upload-subtitle-modern">PNG, JPG, JPEG - Max 5MB</div>
+              </div>
+              <button mat-stroked-button type="button" class="upload-button-modern">
+                Parcourir
+              </button>
+            </div>
+            <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" hidden>
+          </div>
+        </div>
+      </section>
+
+      <mat-divider class="modern-divider"></mat-divider>
+
+      <!-- ========================= -->
+      <!-- 2. PARCOURS SCOLAIRE      -->
+      <!-- ========================= -->
+      <section class="form-section-modern">
+        <div class="section-header">
+          <div class="section-number">2</div>
+          <h3 class="section-title-modern">Parcours scolaire</h3>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>L'enfant a-t-il déjà été scolarisé ?</mat-label>
+              <mat-select formControlName="scolarise_deja">
+                <mat-option [value]="true">Oui</mat-option>
+                <mat-option [value]="false">Non</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Classe demandée</mat-label>
+              <mat-select formControlName="classe_demandee">
+                <mat-option value="CI">CI</mat-option>
+                <mat-option value="CP">CP</mat-option>
+                <mat-option value="CE1">CE1</mat-option>
+                <mat-option value="CE2">CE2</mat-option>
+                <mat-option value="CM1">CM1</mat-option>
+                <mat-option value="CM2">CM2</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>École précédente</mat-label>
+              <mat-icon matPrefix class="field-icon">apartment</mat-icon>
+              <input matInput formControlName="ecole_precedente" placeholder="Nom de l'école (si déjà scolarisé)">
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Classe fréquentée l'an dernier</mat-label>
+              <input matInput formControlName="classe_precedente" placeholder="Ex. CP, CE1...">
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>L'enfant a-t-il déjà redoublé ?</mat-label>
+              <mat-select formControlName="redoublement">
+                <mat-option [value]="false">Non</mat-option>
+                <mat-option [value]="true">Oui</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Classe redoublée (le cas échéant)</mat-label>
+              <input matInput formControlName="classe_redoublee" placeholder="Laisser vide si non concerné">
+            </mat-form-field>
+          </div>
+        </div>
+      </section>
+
+      <mat-divider class="modern-divider"></mat-divider>
+
+      <!-- ========================= -->
+      <!-- 3. SANTÉ ET URGENCES      -->
+      <!-- ========================= -->
+      <section class="form-section-modern">
+        <div class="section-header">
+          <div class="section-number">3</div>
+          <h3 class="section-title-modern">Santé et urgences</h3>
+        </div>
+
+        <div class="form-grid">
+          <div class="form-field-modern full-width-textarea">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Maladies chroniques</mat-label>
+              <textarea matInput
+                        formControlName="maladies_chroniques"
+                        placeholder="Ex. asthme, diabète... ou 'Aucune'"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern full-width-textarea">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Allergies connues</mat-label>
+              <textarea matInput
+                        formControlName="allergies"
+                        placeholder="Médicaments, aliments... ou 'Aucune'"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern full-width-textarea">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Médicaments réguliers</mat-label>
+              <textarea matInput
+                        formControlName="medicaments"
+                        placeholder="Nom, posologie... ou 'Aucun'"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern full-width-textarea">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Besoins particuliers / handicap</mat-label>
+              <textarea matInput
+                        formControlName="besoins_particuliers"
+                        placeholder="Orthophonie, suivi, déficience visuelle, etc."></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Personne à prévenir en cas d'urgence</mat-label>
+              <mat-icon matPrefix class="field-icon">contact_phone</mat-icon>
+              <input matInput formControlName="contact_urgence_nom" placeholder="Nom et prénom">
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Lien avec l'enfant</mat-label>
+              <input matInput formControlName="contact_urgence_lien" placeholder="Ex. mère, père, oncle...">
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Téléphone d'urgence</mat-label>
+              <mat-icon matPrefix class="field-icon">phone_in_talk</mat-icon>
+              <input matInput formControlName="contact_urgence_telephone" placeholder="Numéro joignable rapidement">
+            </mat-form-field>
+          </div>
+
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Médecin / structure de santé (optionnel)</mat-label>
+              <input matInput formControlName="medecin_info" placeholder="Nom du médecin ou centre de santé">
+            </mat-form-field>
+          </div>
+        </div>
+      </section>
+
+      <mat-divider class="modern-divider"></mat-divider>
+
+      <!-- ========================= -->
+      <!-- 4. PARENTS / TUTEURS      -->
+      <!-- ========================= -->
+      <section class="form-section-modern">
+        <div class="section-header">
+          <div class="section-number">4</div>
+          <h3 class="section-title-modern">Parents / tuteurs légaux</h3>
+        </div>
+
+        <!-- Parent / tuteur 1 -->
+        <div class="subsection-modern">
+          <h4 class="section-subtitle-modern">Responsable légal 1</h4>
+          <div class="form-grid">
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Nom et prénoms</mat-label>
+                <mat-icon matPrefix class="field-icon">person_outline</mat-icon>
+                <input matInput formControlName="parent1_nom" placeholder="Nom et prénoms">
+              </mat-form-field>
+            </div>
+
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Lien avec l'enfant</mat-label>
+                <input matInput formControlName="parent1_lien" placeholder="Père, mère, tuteur...">
+              </mat-form-field>
+            </div>
+
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Profession</mat-label>
+                <input matInput formControlName="parent1_profession" placeholder="Profession">
+              </mat-form-field>
+            </div>
+
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Employeur / lieu de travail</mat-label>
+                <input matInput formControlName="parent1_employeur" placeholder="Nom de la structure">
+              </mat-form-field>
+            </div>
+
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Téléphone principal</mat-label>
+                <mat-icon matPrefix class="field-icon">phone_iphone</mat-icon>
+                <input matInput formControlName="parent1_telephone" placeholder="Numéro principal">
+              </mat-form-field>
+            </div>
+
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Adresse e-mail (optionnel)</mat-label>
+                <mat-icon matPrefix class="field-icon">mail</mat-icon>
+                <input matInput formControlName="parent1_email" placeholder="Email si disponible">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <!-- Parent / tuteur 2 -->
+        <div class="subsection-modern">
+          <h4 class="section-subtitle-modern">Responsable légal 2 (optionnel)</h4>
+          <div class="form-grid">
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Nom et prénoms</mat-label>
+                <input matInput formControlName="parent2_nom" placeholder="Nom et prénoms">
+              </mat-form-field>
+            </div>
+
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Lien avec l'enfant</mat-label>
+                <input matInput formControlName="parent2_lien" placeholder="Père, mère, tuteur...">
+              </mat-form-field>
+            </div>
+
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Profession</mat-label>
+                <input matInput formControlName="parent2_profession" placeholder="Profession">
+              </mat-form-field>
+            </div>
+
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Employeur / lieu de travail</mat-label>
+                <input matInput formControlName="parent2_employeur" placeholder="Nom de la structure">
+              </mat-form-field>
+            </div>
+
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Téléphone principal</mat-label>
+                <input matInput formControlName="parent2_telephone" placeholder="Numéro principal">
+              </mat-form-field>
+            </div>
+
+            <div class="form-field-modern">
+              <mat-form-field appearance="fill" class="full-width-modern">
+                <mat-label>Adresse e-mail (optionnel)</mat-label>
+                <input matInput formControlName="parent2_email" placeholder="Email si disponible">
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <!-- Prise en charge scolarité -->
+        <div class="form-grid">
+          <div class="form-field-modern">
+            <mat-form-field appearance="fill" class="full-width-modern">
+              <mat-label>Prise en charge de la scolarité</mat-label>
+              <mat-select formControlName="prise_en_charge">
+                <mat-option value="parents">Parent(s)</mat-option>
+                <mat-option value="tuteur">Tuteur</mat-option>
+                <mat-option value="employeur">Employeur / organisation</mat-option>
+                <mat-option value="autre">Autre</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
+      </section>
+
+      <mat-divider class="modern-divider"></mat-divider>
+
+      <!-- ========================= -->
+      <!-- 5. DOCUMENTS À FOURNIR    -->
+      <!-- ========================= -->
+      <section class="form-section-modern">
+        <div class="section-header">
+          <div class="section-number">5</div>
+          <h3 class="section-title-modern">Documents à fournir</h3>
+        </div>
+
+        <p class="section-help-modern">
+          Merci de préparer les documents ci-dessous. Vous pouvez les joindre au dossier sous forme de scan ou de photo.
+        </p>
+
+        <!-- Liste informative -->
+        <mat-list class="documents-list-modern" dense>
+          <mat-list-item class="document-item">
+            <mat-icon matListIcon class="document-icon">description</mat-icon>
+            <div matLine>Extrait ou copie intégrale de l'acte de naissance</div>
+          </mat-list-item>
+          <mat-list-item class="document-item">
+            <mat-icon matListIcon class="document-icon">healing</mat-icon>
+            <div matLine>Copie du carnet de vaccination ou attestation de vaccination</div>
+          </mat-list-item>
+          <mat-list-item class="document-item">
+            <mat-icon matListIcon class="document-icon">photo_camera</mat-icon>
+            <div matLine>2 photos d'identité récentes de l'élève</div>
+          </mat-list-item>
+          <mat-list-item class="document-item">
+            <mat-icon matListIcon class="document-icon">school</mat-icon>
+            <div matLine>Certificat de scolarité ou certificat de radiation de l'école précédente (si déjà scolarisé)</div>
+          </mat-list-item>
+          <mat-list-item class="document-item">
+            <mat-icon matListIcon class="document-icon">badge</mat-icon>
+            <div matLine>Copie de la pièce d'identité d'un parent ou tuteur légal</div>
+          </mat-list-item>
+        </mat-list>
+
+        <!-- Zone d'upload des pièces jointes -->
+        <div class="upload-section">
+          <label class="upload-label-modern">Joindre les pièces (scan ou photo)</label>
+          <div class="upload-zone-modern" (click)="piecesInput.click()">
+            <div class="upload-content">
+              <div class="upload-icon">
+                <mat-icon>attach_file</mat-icon>
+              </div>
+              <div class="upload-text">
+                <div class="upload-title-modern">Glissez-déposez ou parcourez</div>
+                <div class="upload-subtitle-modern">PDF, images (JPG, PNG, JPEG) – plusieurs fichiers possibles</div>
+              </div>
+              <button mat-stroked-button type="button" class="upload-button-modern">
+                Parcourir
+              </button>
+            </div>
+            <input #piecesInput type="file" multiple accept=".pdf,image/*" (change)="onFileSelected($event)" hidden>
+          </div>
+        </div>
+      </section>
+
+      <!-- Actions du formulaire -->
+      <div class="form-actions-modern">
+        <button mat-stroked-button type="button" class="cancel-button">
+          Annuler
+        </button>
+        <button mat-raised-button type="submit" color="primary" class="submit-button">
+          <mat-icon>save</mat-icon>
+          Enregistrer l'élève
+        </button>
+      </div>
+    </form>
   </mat-card-content>
 </mat-card>

@@ -13,10 +13,11 @@
       position:relative;
       margin-bottom:80px;
     ">
-    
+
     <!-- BOUTONS FLOATANTS -->
     <div style="position:absolute; top:12px; right:12px;">
-      <button mat-mini-fab color="primary" style="margin-right:8px;" [routerLink]="['/ahmedbaba/matieres/update/', matiere.id]">
+      <button mat-mini-fab color="primary" style="margin-right:8px;"
+              [routerLink]="['/ahmedbaba/matieres/update/', matiere.id]">
         <mat-icon>edit</mat-icon>
       </button>
       <button mat-mini-fab color="warn" (click)="deleteMatiere()">
@@ -44,7 +45,7 @@
     </div>
   </div>
 
-  <!-- CARD INFO -->
+  <!-- CARD INFO MATIÈRE -->
   <mat-card style="
       width:100%;
       border-radius:14px;
@@ -94,6 +95,125 @@
         </strong>
       </p>
 
+    </div>
+
+  </mat-card>
+
+  <!-- ================================ -->
+  <!--  SECTION ENSEIGNANTS / CLASSES   -->
+  <!-- ================================ -->
+  <mat-card *ngIf="enseignements && enseignements.length"
+            style="width:100%; border-radius:14px; padding:24px; margin-top:24px; box-sizing:border-box;">
+
+    <h3 style="margin-top:0; margin-bottom:16px; font-size:20px; font-weight:500;">
+      Enseignants pour cette matière
+    </h3>
+
+    <mat-divider style="margin-bottom:20px;"></mat-divider>
+
+    <div style="
+        display:grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap:16px;
+      ">
+
+      <!-- Carte par enseignant / enseignement -->
+      <mat-card *ngFor="let ens of enseignements"
+                style="border-radius:12px; padding:16px; box-shadow:0 1px 4px rgba(0,0,0,0.1);">
+
+        <!-- HEADER PROF -->
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:8px;">
+          <div style="display:flex; align-items:center;">
+            <mat-icon style="margin-right:8px;">person</mat-icon>
+            <div>
+              <div style="font-weight:600; font-size:15px;">
+                {{ ens.enseignant?.prenom }} {{ ens.enseignant?.nom }}
+              </div>
+              <small style="color:gray;">
+                Classe : {{ ens.classe?.nom }} ({{ ens.classe?.niveau }})
+              </small>
+            </div>
+          </div>
+
+          <!-- TITULAIRE -->
+          <mat-chip *ngIf="ens.titulaire"
+                    color="primary"
+                    selected
+                    style="font-size:11px;">
+            Titulaire
+          </mat-chip>
+        </div>
+
+        <mat-divider style="margin-bottom:8px;"></mat-divider>
+
+        <!-- INFOS PROF -->
+        <div style="display:flex; flex-direction:column; gap:4px; font-size:13px;">
+
+          <!-- Téléphone -->
+          <div style="display:flex; align-items:center;">
+            <mat-icon style="margin-right:6px; font-size:18px;">phone</mat-icon>
+            <span>
+              Tél :
+              <strong>{{ ens.enseignant?.telephone || 'Non renseigné' }}</strong>
+            </span>
+          </div>
+
+          <!-- Adresse -->
+          <div style="display:flex; align-items:center;">
+            <mat-icon style="margin-right:6px; font-size:18px;">home</mat-icon>
+            <span>
+              Adresse :
+              <strong>{{ ens.enseignant?.adresse || 'Non renseignée' }}</strong>
+            </span>
+          </div>
+
+          <!-- Matricule -->
+          <div style="display:flex; align-items:center;">
+            <mat-icon style="margin-right:6px; font-size:18px;">badge</mat-icon>
+            <span>
+              Matricule :
+              <strong>{{ ens.enseignant?.matricule || '—' }}</strong>
+            </span>
+          </div>
+
+          <!-- Année scolaire -->
+          <div style="display:flex; align-items:center;">
+            <mat-icon style="margin-right:6px; font-size:18px;">event</mat-icon>
+            <span>
+              Année scolaire :
+              <strong>{{ ens.anneeScolaire || '—' }}</strong>
+            </span>
+          </div>
+
+          <!-- Volume horaire -->
+          <div style="display:flex; align-items:center;">
+            <mat-icon style="margin-right:6px; font-size:18px;">schedule</mat-icon>
+            <span>
+              Volume horaire :
+              <strong>{{ ens.volumeHoraireHebdo || 0 }} h / semaine</strong>
+            </span>
+          </div>
+
+          <!-- Statut -->
+          <div style="display:flex; align-items:center;">
+            <mat-icon style="margin-right:6px; font-size:18px;">flag</mat-icon>
+            <span>
+              Statut :
+              <strong>{{ ens.statut || 'ACTIF' }}</strong>
+            </span>
+          </div>
+
+          <!-- Archivé -->
+          <div style="display:flex; align-items:center;">
+            <mat-icon style="margin-right:6px; font-size:18px;">inventory_2</mat-icon>
+            <span>
+              Enseignement archivé :
+              <strong>{{ ens.archive ? 'Oui' : 'Non' }}</strong>
+            </span>
+          </div>
+        </div>
+
+      </mat-card>
     </div>
 
   </mat-card>

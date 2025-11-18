@@ -1,107 +1,218 @@
-<div *ngIf="loading" style="text-align:center; margin-top:40px;">
-  <mat-spinner></mat-spinner>
+<div *ngIf="loading" class="loading-container">
+  <mat-spinner diameter="60"></mat-spinner>
+  <p class="loading-text">Chargement des informations de la classe...</p>
 </div>
 
-<div *ngIf="!loading && classe" style="max-width:100%; width:100%; margin:0 auto; padding:0 16px;">
+<div *ngIf="!loading && classe" class="classe-detail-container">
 
-  <!-- BANNIÈRE FULL WIDTH -->
-  <div style="
-      width:100%;
-      height:160px;
-      background:linear-gradient(to right, #3f51b5, #1a237e);
-      border-radius:12px;
-      position:relative;
-      margin-bottom:80px;
-    ">
+  <!-- Bannière principale -->
+  <div class="classe-banner">
+    <div class="banner-overlay">
+      <div class="classe-icon-large">
+        <mat-icon>school</mat-icon>
+      </div>
+      <h1 class="classe-title">{{ classe.nom }}</h1>
+      <p class="classe-subtitle">{{ classe.description }}</p>
+      <div class="banner-badges">
+        <span class="badge niveau">{{ classe.niveau }}</span>
+        <span class="badge annee">{{ classe.anneeScolaire }}</span>
+      </div>
+    </div>
     
-    <!-- BOUTONS FLOATING -->
-    <div style="position:absolute; top:12px; right:12px;">
-      <button mat-mini-fab color="primary" style="margin-right:8px;" (click)="updateClasse()">
+    <!-- Actions flottantes -->
+    <div class="floating-actions">
+      <button mat-fab color="primary" class="action-btn" (click)="updateClasse()" matTooltip="Modifier la classe">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-mini-fab color="warn" (click)="deleteClasse()">
+      <button mat-fab color="warn" class="action-btn" (click)="deleteClasse()" matTooltip="Supprimer la classe">
         <mat-icon>delete</mat-icon>
       </button>
     </div>
-
-    <!-- ICON CENTRÉE -->
-    <div style="
-        position:absolute;
-        left:50%;
-        bottom:-55px;
-        transform: translateX(-50%);
-        text-align:center;
-      ">
-      
-      <!-- <div style="
-          width:120px;
-          height:120px;
-          border-radius:50%;
-          background:white;
-          display:flex;
-          align-items:center;
-          justify-content:center;
-          box-shadow:0 4px 8px rgba(0,0,0,0.3);
-        ">
-        <mat-icon style="font-size:70px; color:#3f51b5;">school</mat-icon>
-      </div> -->
-
-      <h2 style="margin:14px 0 0 0; font-size:23px;">
-        {{ classe.nom }}
-      </h2>
-      <small style="color:gray; font-size:15px;">
-        Effectif : {{ classe.effectif }} élèves
-      </small>
-    </div>
   </div>
 
-  <!-- FULL WIDTH CARD -->
-  <mat-card style="
-      width:100%;
-      border-radius:14px;
-      padding:24px;
-      box-sizing:border-box;
-    ">
+  <!-- Grille d'informations principales -->
+  <div class="info-grid">
     
-    <h3 style="margin-top:0; margin-bottom:16px; font-size:20px; font-weight:500;">
-      Informations de la classe
-    </h3>
+    <!-- Informations générales -->
+    <mat-card class="info-card">
+      <mat-card-header class="card-header-modern">
+        <mat-icon class="card-icon">info</mat-icon>
+        <h2 class="card-title">Informations générales</h2>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="card-content">
+        <div class="info-item">
+          <mat-icon class="info-icon">badge</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Identifiant</span>
+            <span class="info-value">#{{ classe.id }}</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <mat-icon class="info-icon">description</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Description</span>
+            <span class="info-value">{{ classe.description }}</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <mat-icon class="info-icon">grade</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Niveau</span>
+            <span class="info-value badge-inline {{ classe.niveau?.toLowerCase() }}">{{ classe.niveau }}</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <mat-icon class="info-icon">event</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Année scolaire</span>
+            <span class="info-value">{{ classe.anneeScolaire }}</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-    <mat-divider style="margin-bottom:20px;"></mat-divider>
+    <!-- Effectif et capacité -->
+    <mat-card class="info-card">
+      <mat-card-header class="card-header-modern">
+        <mat-icon class="card-icon">people</mat-icon>
+        <h2 class="card-title">Effectif & Capacité</h2>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="card-content">
+        <div class="info-item">
+          <mat-icon class="info-icon">group</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Effectif actuel</span>
+            <span class="info-value">{{ classe.effectifActuel }} élèves</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <mat-icon class="info-icon">meeting_room</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Capacité maximale</span>
+            <span class="info-value">{{ classe.capaciteMax }} élèves</span>
+          </div>
+        </div>
+        <div class="capacity-progress">
+          <div class="progress-info">
+            <span>Taux d'occupation</span>
+            <span class="occupation-rate">{{ getOccupationRate(classe) }}%</span>
+          </div>
+          <mat-progress-bar 
+            class="progress-bar"
+            [value]="getOccupationRate(classe)"
+            [color]="getProgressColor(getOccupationRate(classe))">
+          </mat-progress-bar>
+          <div class="progress-stats">
+            <span>{{ classe.effectifActuel }} / {{ classe.capaciteMax }}</span>
+            <span>{{ classe.capaciteMax - classe.effectifActuel }} places restantes</span>
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-    <!-- GRID -->
-    <div style="
-        display:grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap:20px;
-      ">
+    <!-- Localisation -->
+    <mat-card class="info-card">
+      <mat-card-header class="card-header-modern">
+        <mat-icon class="card-icon">location_on</mat-icon>
+        <h2 class="card-title">Localisation</h2>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="card-content">
+        <div class="info-item">
+          <mat-icon class="info-icon">meeting_room</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Salle</span>
+            <span class="info-value">{{ classe.salle }}</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <mat-icon class="info-icon">business</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Bâtiment</span>
+            <span class="info-value">{{ classe.batiment }}</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <mat-icon class="info-icon">stairs</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Étage</span>
+            <span class="info-value">
+              {{ classe.etage === 0 ? 'Rez-de-chaussée' : 
+                 classe.etage === 1 ? '1er étage' : 
+                 classe.etage + 'ème étage' }}
+            </span>
+          </div>
+        </div>
+        <div class="location-summary">
+          <mat-icon>place</mat-icon>
+          <span>{{ classe.batiment }} - {{ classe.salle }} ({{ classe.etage === 0 ? 'RDC' : 'Étage ' + classe.etage }})</span>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-      <p style="display:flex; align-items:center; margin:0;">
-        <mat-icon style="margin-right:8px;">badge</mat-icon>
-        Identifiant :
-        <strong style="margin-left:4px;">{{ classe.id }}</strong>
-      </p>
+    <!-- Organisation pédagogique -->
+    <mat-card class="info-card">
+      <mat-card-header class="card-header-modern">
+        <mat-icon class="card-icon">schedule</mat-icon>
+        <h2 class="card-title">Organisation</h2>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="card-content">
+        <div class="info-item">
+          <mat-icon class="info-icon">access_time</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Régime horaire</span>
+            <span class="info-value">{{ getRegimeLabel(classe.regime) }}</span>
+          </div>
+        </div>
+        <div class="info-item">
+          <mat-icon class="info-icon">translate</mat-icon>
+          <div class="info-content">
+            <span class="info-label">Langue d'enseignement</span>
+            <span class="info-value">{{ classe.langueEnseignement }}</span>
+          </div>
+        </div>
+        <div class="regime-details">
+          <mat-icon>info_outline</mat-icon>
+          <span>
+            {{ getRegimeDescription(classe.regime) }}
+          </span>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-      <p style="display:flex; align-items:center; margin:0;">
-        <mat-icon style="margin-right:8px;">groups</mat-icon>
-        Effectif :
-        <strong style="margin-left:4px;">{{ classe.effectif }}</strong>
-      </p>
+    <!-- Statut de la classe -->
+    <mat-card class="info-card status-card">
+      <mat-card-header class="card-header-modern">
+        <mat-icon class="card-icon">flag</mat-icon>
+        <h2 class="card-title">Statut</h2>
+      </mat-card-header>
+      <mat-divider></mat-divider>
+      <mat-card-content class="card-content">
+        <div class="status-indicator" [class.archived]="classe.archive">
+          <mat-icon class="status-icon">
+            {{ classe.archive ? 'archive' : 'check_circle' }}
+          </mat-icon>
+          <div class="status-content">
+            <span class="status-text">
+              {{ classe.archive ? 'Classe archivée' : 'Classe active' }}
+            </span>
+            <span class="status-subtext">
+              {{ classe.archive ? 'Non disponible pour les nouvelles inscriptions' : 'Ouverte aux inscriptions' }}
+            </span>
+          </div>
+        </div>
+        <div class="status-actions" *ngIf="!classe.archive">
+          <button mat-stroked-button color="primary" (click)="archiverClasse()">
+            <mat-icon>archive</mat-icon>
+            Archiver la classe
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
 
-      <p style="display:flex; align-items:center; margin:0;">
-        <mat-icon style="margin-right:8px;">person</mat-icon>
-        Responsable :
-        <strong style="margin-left:4px;">{{ classe.responsable }}</strong>
-      </p>
-
-      <p style="display:flex; align-items:center; margin:0;">
-        <mat-icon style="margin-right:8px;">location_city</mat-icon>
-        Niveau :
-        <strong style="margin-left:4px;">{{ classe.niveau }}</strong>
-      </p>
-
-    </div>
-
-  </mat-card>
+  </div>
 
 </div>

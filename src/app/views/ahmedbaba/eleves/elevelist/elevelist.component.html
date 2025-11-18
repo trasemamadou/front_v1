@@ -1,43 +1,115 @@
-<div fxLayout="row wrap" >
+<div class="students-grid">
   <div
     *ngFor="let eleve of listStudents"
-    fxFlex="100"
-    fxFlex.gt-sm="33"
-    fxFlex.sm="50">
+    class="student-card-wrapper">
 
-    <mat-card class="user-card p-0">
-      <mat-card-title class="mb-16">
-        <div class="card-title-text" fxLayout="row" fxLayoutAlign="start center">
-          <a class="toolbar-avatar sm mr-16">
-            <img [src]="apiUrl  + eleve.imageUrl" alt="{{eleve.nom}}" width="40" height="40" style="border-radius:50%">
-          </a>
-          <div>
-            <span class="text-16 font-medium">{{ eleve.prenom }} {{ eleve.nom }}</span><br>
-            <small class="text-muted">{{ eleve.matricule }}</small>
-          </div>
-          <span fxFlex></span>
-          <button mat-icon-button [matMenuTriggerFor]="eleveMenu">
-            <mat-icon class="text-muted text-18">more_vert</mat-icon>
-          </button>
-          <mat-menu #eleveMenu="matMenu">
-            <!-- <button mat-menu-item>Modifier</button> -->
-            <button [routerLink]="['/ahmedbaba/eleves/profile/', eleve.id]" mat-menu-item>info</button>
-            <!-- <button mat-menu-item>Archiver</button>
-            <button mat-menu-item>Supprimer</button> -->
-          </mat-menu>
+    <mat-card class="student-card-modern">
+      <!-- Header de la carte -->
+      <div class="card-header-modern">
+        <div class="student-avatar">
+          <img 
+            [src]="apiUrl + eleve.imageUrl" 
+            [alt]="eleve.nom"
+            class="avatar-image"
+            (error)="handleImageError($event)">
+          <div class="online-indicator"></div>
         </div>
-        <mat-divider></mat-divider>
-      </mat-card-title>
+        
+        <div class="student-info">
+          <h3 class="student-name">{{ eleve.prenom }} {{ eleve.nom }}</h3>
+          <span class="student-matricule">{{ eleve.matricule }}</span>
+        </div>
 
-      <mat-card-content>
-        <div class="user-details">
-          <p><mat-icon class="text-muted text-18">cake</mat-icon> Né(e) le {{ eleve.date_naissance | date:'dd/MM/yyyy' }}</p>
-          <p><mat-icon class="text-muted text-18">phone</mat-icon> {{ eleve.telephone }}</p>
-          <p><mat-icon class="text-muted text-18">location_on</mat-icon> {{ eleve.adresse }}</p>
-          <p><mat-icon class="text-muted text-18">badge</mat-icon> Numéro d’enregistrement : {{ eleve.registrationNu }}</p>
+        <button 
+          mat-icon-button 
+          class="menu-button"
+          [matMenuTriggerFor]="eleveMenu">
+          <mat-icon class="menu-icon">more_vert</mat-icon>
+        </button>
+      </div>
+
+      <!-- Menu d'actions -->
+      <mat-menu #eleveMenu="matMenu" class="action-menu">
+        <button 
+          mat-menu-item 
+          class="menu-item"
+          [routerLink]="['/ahmedbaba/eleves/profile/', eleve.id]">
+          <mat-icon class="menu-item-icon">visibility</mat-icon>
+          <span>Voir le profil</span>
+        </button>
+        <button mat-menu-item class="menu-item">
+          <mat-icon class="menu-item-icon">edit</mat-icon>
+          <span>Modifier</span>
+        </button>
+        <mat-divider class="menu-divider"></mat-divider>
+        <button mat-menu-item class="menu-item delete">
+          <mat-icon class="menu-item-icon">archive</mat-icon>
+          <span>Archiver</span>
+        </button>
+      </mat-menu>
+
+      <!-- Contenu de la carte -->
+      <mat-card-content class="card-content-modern">
+        <div class="info-grid">
+          <div class="info-item">
+            <div class="info-icon">
+              <mat-icon>cake</mat-icon>
+            </div>
+            <div class="info-content">
+              <span class="info-label">Date de naissance</span>
+              <span class="info-value">{{ eleve.date_naissance | date:'dd/MM/yyyy' }}</span>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <mat-icon>phone</mat-icon>
+            </div>
+            <div class="info-content">
+              <span class="info-label">Téléphone</span>
+              <span class="info-value">{{ eleve.telephone || 'Non renseigné' }}</span>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <mat-icon>location_on</mat-icon>
+            </div>
+            <div class="info-content">
+              <span class="info-label">Adresse</span>
+              <span class="info-value">{{ eleve.adresse || 'Non renseignée' }}</span>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="info-icon">
+              <mat-icon>badge</mat-icon>
+            </div>
+            <div class="info-content">
+              <span class="info-label">N° d'enregistrement</span>
+              <span class="info-value registration-number">{{ eleve.registrationNu }}</span>
+            </div>
+          </div>
         </div>
       </mat-card-content>
-    </mat-card>
 
+      <!-- Footer de la carte -->
+      <mat-card-actions class="card-actions-modern">
+        <button 
+          mat-stroked-button 
+          class="action-button profile"
+          [routerLink]="['/ahmedbaba/eleves/profile/', eleve.id]">
+          <mat-icon>person</mat-icon>
+          Profil
+        </button>
+        <button 
+          mat-raised-button 
+          class="action-button contact"
+          color="primary">
+          <mat-icon>message</mat-icon>
+          Contacter
+        </button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>

@@ -1,0 +1,141 @@
+/* Conteneur de la page (zone centrale à droite du menu) */
+:host {
+  display: block;
+  padding: 24px;
+  background: #f5f7fb; /* gris très léger */
+}
+
+/* Carte principale */
+.eleve-card {
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  overflow: hidden;
+}
+
+/* Header de la carte */
+.eleve-card-header {
+  padding: 20px 24px;
+  align-items: center;
+}
+
+.eleve-card-header mat-card-title {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.eleve-card-header mat-card-subtitle {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* Avatar circulaire dans le header */
+.eleve-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eleve-avatar mat-icon {
+  color: #ffffff;
+}
+
+/* Contenu du formulaire */
+.eleve-form {
+  padding: 24px;
+  padding-top: 16px;
+}
+
+/* Champs full width */
+.full-width {
+  width: 100%;
+}
+
+/* Mat form fields plus “clean” */
+mat-form-field.full-width {
+  width: 100%;
+}
+
+mat-form-field {
+  background: #ffffff;
+}
+
+/* Optionnel : resserrer un peu l’input Angular Material */
+::ng-deep .mat-mdc-text-field-wrapper {
+  border-radius: 10px !important;
+}
+
+/* Label upload */
+.upload-label {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: #64748b;
+}
+
+/* Zone d’upload moderne */
+.upload-zone {
+  border-radius: 12px;
+  border: 1px dashed rgba(148, 163, 184, 0.9);
+  background: #f8fafc;
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.upload-zone:hover {
+  border-color: #2563eb;
+  background: #eff6ff;
+}
+
+.upload-zone mat-icon {
+  font-size: 28px;
+  color: #2563eb;
+}
+
+.upload-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: #0f172a;
+}
+
+.upload-subtitle {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+/* Ligne des boutons */
+.action-row {
+  margin-top: 8px;
+}
+
+.action-row button {
+  min-width: 120px;
+}
+
+/* Bouton Enregistrer légèrement mis en avant */
+.action-row button[color="primary"] {
+  box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
+}
+
+/* Responsive pour écrans étroits */
+@media (max-width: 960px) {
+  :host {
+    padding: 16px;
+  }
+
+  .eleve-card {
+    border-radius: 12px;
+  }
+
+  .eleve-form {
+    padding: 16px;
+  }
+}

@@ -1,5 +1,11 @@
 <mat-card class="p-0 overflow-x-auto" fxLayout="row wrap">
-  <table mat-table fxFlex [dataSource]="listClasses" *ngIf="listClasses" class="mat-elevation-z1 min-w-600">
+  <table
+    mat-table
+    fxFlex
+    [dataSource]="listClasses"
+    *ngIf="listClasses"
+    class="mat-elevation-z1 min-w-600"
+  >
 
     <!-- Nom Column -->
     <ng-container matColumnDef="nom">
@@ -9,24 +15,112 @@
       </td>
     </ng-container>
 
+    <!-- Niveau Column -->
+    <ng-container matColumnDef="niveau">
+      <th mat-header-cell *matHeaderCellDef>Niveau</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.niveau }}
+      </td>
+    </ng-container>
+
+    <!-- Année scolaire Column -->
+    <ng-container matColumnDef="anneeScolaire">
+      <th mat-header-cell *matHeaderCellDef>Année scolaire</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.anneeScolaire }}
+      </td>
+    </ng-container>
+
     <!-- Description Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef>Description</th>
-      <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+      <td mat-cell *matCellDef="let element">
+        {{ element.description }}
+      </td>
+    </ng-container>
+
+    <!-- Effectif Column -->
+    <ng-container matColumnDef="effectif">
+      <th mat-header-cell *matHeaderCellDef>Effectif</th>
+      <td mat-cell *matCellDef="let element">
+        <span>
+          {{ element.effectifActuel || 0 }}
+          /
+          {{ element.capaciteMax || 0 }}
+        </span>
+      </td>
+    </ng-container>
+
+    <!-- Régime Column -->
+    <ng-container matColumnDef="regime">
+      <th mat-header-cell *matHeaderCellDef>Régime</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-chip class="py-4 px-8" selected>
+          {{ element.regime }}
+        </mat-chip>
+      </td>
+    </ng-container>
+
+    <!-- Langue d'enseignement Column -->
+    <ng-container matColumnDef="langueEnseignement">
+      <th mat-header-cell *matHeaderCellDef>Langue</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.langueEnseignement }}
+      </td>
+    </ng-container>
+
+    <!-- Salle Column -->
+    <ng-container matColumnDef="salle">
+      <th mat-header-cell *matHeaderCellDef>Salle</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="d-flex flex-column">
+          <span>{{ element.salle }}</span>
+          <small class="text-muted">
+            {{ element.batiment }} • Étage {{ element.etage }}
+          </small>
+        </div>
+      </td>
     </ng-container>
 
     <!-- Archive Column -->
     <ng-container matColumnDef="archive">
       <th mat-header-cell *matHeaderCellDef>Archivée</th>
       <td mat-cell *matCellDef="let element">
-        <mat-chip class="py-4 px-8" color="{{ element.archive ? 'warn' : 'primary' }}" selected>
+        <mat-chip class="py-4 px-8"
+                  color="{{ element.archive ? 'warn' : 'primary' }}"
+                  selected>
           {{ element.archive ? 'Oui' : 'Non' }}
         </mat-chip>
       </td>
     </ng-container>
 
     <!-- Header and Row Definitions -->
-    <tr mat-header-row *matHeaderRowDef="['nom', 'description', 'archive']"></tr>
-    <tr mat-row *matRowDef="let row; columns: ['nom', 'description', 'archive'];"></tr>
+    <tr mat-header-row
+        *matHeaderRowDef="[
+          'nom',
+          'niveau',
+          'anneeScolaire',
+          'description',
+          'effectif',
+          'regime',
+          'langueEnseignement',
+          'salle',
+          'archive'
+        ]">
+    </tr>
+
+    <tr mat-row
+        *matRowDef="let row; columns: [
+          'nom',
+          'niveau',
+          'anneeScolaire',
+          'description',
+          'effectif',
+          'regime',
+          'langueEnseignement',
+          'salle',
+          'archive'
+        ];">
+    </tr>
   </table>
 </mat-card>

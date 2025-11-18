@@ -1,46 +1,103 @@
-<mat-card class="p-0">
-  <mat-card-title>
-    <div class="card-title-text flex items-center justify-between">
-      <span>Liste des Classes</span><br>
-      <button mat-raised-button color="primary" [routerLink]="'/ahmedbaba/classes/ajouter'">+ Nouvelle Classe</button>
+<mat-card class="modern-classes-card">
+  <!-- En-tête moderne -->
+  <div class="card-header-modern">
+    <div class="header-content">
+      <div class="header-text">
+        <div class="title-with-icon">
+          <mat-icon class="header-icon">school</mat-icon>
+          <div>
+            <h1 class="page-title">Liste des Classes</h1>
+            <p class="page-subtitle">Gérez l'ensemble des classes de l'établissement</p>
+          </div>
+        </div>
+      </div>
+      <button 
+        mat-raised-button 
+        color="primary" 
+        class="add-button-modern"
+        [routerLink]="'/ahmedbaba/classes/ajouter'">
+        <mat-icon>add</mat-icon>
+        Nouvelle Classe
+      </button>
     </div>
-    <mat-divider></mat-divider>
-  </mat-card-title>
+  </div>
 
-  <mat-card-content>
-    <div *ngIf="listClasses?.length; else noData">
-      <table class="default-table mat-box-shadow mb-24" style="width: 100%">
-        <thead>
-          <tr>
-            <th>Nom</th>
-            <th>Description</th>
-            <!-- <th>Archivée</th> -->
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let c of listClasses">
-            <td>{{ c.nom }}</td>
-            <td>{{ c.description }}</td>
-            <!-- <td>
-              <mat-icon color="{{ c.archive ? 'warn' : 'primary' }}">
-                {{ c.archive ? 'archive' : 'check_circle' }}
-              </mat-icon>
-            </td> -->
-            <td nowrap>
-              <button mat-stroked-button color="accent" [routerLink]="['/ahmedbaba/classes/info/', c.id]">Info</button>
-              <!-- <button mat-stroked-button color="warn" (click)="supprimerClasse(c.id)">Supprimer</button>
-              <button mat-stroked-button color="primary" *ngIf="!c.archive" (click)="archiverClasse(c.id)">
-                Archiver
-              </button> -->
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <mat-divider class="modern-divider"></mat-divider>
+
+  <mat-card-content class="modern-content">
+    <div *ngIf="listClasses?.length; else noData" class="classes-grid-modern">
+      <!-- Carte moderne pour chaque classe -->
+      <mat-card 
+        *ngFor="let c of listClasses" 
+        class="class-card-modern">
+        
+        <!-- Header avec icône -->
+        <div class="card-header-modern">
+          <div class="class-icon">
+            <mat-icon>class</mat-icon>
+          </div>
+          <div class="class-main-info">
+            <h3 class="class-name">
+              {{ c.nom }}
+            </h3>
+            <p class="class-description">
+              <mat-icon>description</mat-icon>
+              {{ c.description }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Informations supplémentaires si disponibles -->
+        <div class="class-meta" *ngIf="c.anneeScolaire || c.effectifActuel">
+          <div class="meta-item" *ngIf="c.anneeScolaire">
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ c.anneeScolaire }}</span>
+          </div>
+          <div class="meta-item" *ngIf="c.effectifActuel">
+            <mat-icon>people</mat-icon>
+            <span>{{ c.effectifActuel }} élève(s)</span>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <mat-card-actions class="card-actions-modern">
+          <button 
+            mat-stroked-button 
+            color="accent" 
+            class="info-button-modern"
+            [routerLink]="['/ahmedbaba/classes/info/', c.id]">
+            <mat-icon>visibility</mat-icon>
+            Voir les détails
+          </button>
+        </mat-card-actions>
+
+        <!-- Badge archivé (commenté) -->
+        <!--
+        <div class="archived-badge" *ngIf="c.archive">
+          <mat-icon>archive</mat-icon>
+          <span>Archivée</span>
+        </div>
+        -->
+      </mat-card>
     </div>
 
+    <!-- État vide moderne -->
     <ng-template #noData>
-      <p style="padding: 1rem; text-align: center;">Aucune classe disponible.</p>
+      <div class="empty-state-modern">
+        <div class="empty-icon-container">
+          <mat-icon class="empty-icon">class</mat-icon>
+        </div>
+        <h3 class="empty-title">Aucune classe disponible</h3>
+        <p class="empty-message">Créez votre première classe pour commencer</p>
+        <button 
+          mat-raised-button 
+          color="primary"
+          class="empty-action-button"
+          [routerLink]="'/ahmedbaba/classes/ajouter'">
+          <mat-icon>add</mat-icon>
+          Créer une classe
+        </button>
+      </div>
     </ng-template>
   </mat-card-content>
 </mat-card>
